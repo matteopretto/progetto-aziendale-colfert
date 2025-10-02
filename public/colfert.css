@@ -1,0 +1,32 @@
+/* =============================
+public/skins/skin-colfert.css
+(metti questi 3 file sotto /public/skins)
+============================= */
+:root{
+--colfert-yellow: rgb(255,186,0);
+--colfert-gray: rgb(198,198,197);
+
+
+--bg: var(--colfert-gray);
+--surface: #ffffff;
+--text-strong: #0f172a; /* slate-900 */
+--text-normal: #334155; /* slate-700 */
+--text-muted: #64748b; /* slate-500 */
+--border: rgba(0,0,0,0.08);
+--shadow: 0 10px 25px rgba(0,0,0,0.06);
+--radius: 1rem; /* 16px */
+}
+
+#titolo{
+    color: var(--colfert-gray);
+    font-weight: bold;
+    font-size: x-large;
+}
+
+#header{
+    color: green
+}
+
+
+
+

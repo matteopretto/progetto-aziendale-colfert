@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+#titolo{
+    color: grey;
+    font-weight: bold;
+    font-size:xx-large
+}
+
+#header{
+    color:(colfert-yellow);
+}
