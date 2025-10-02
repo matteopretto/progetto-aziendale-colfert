@@ -22,9 +22,16 @@ function Dashboard({ isVisible }) {
     return (
         isVisible ? (
             <div className="overflow-x-auto">
+                 <div className="flex justify-start mt-4">
+                    <button
+                    onClick={exportToExcel}
+                    className="bg-[rgb(255,186,0)] text-black px-4 py-2 rounded hover:bg-blue-600"
+                >
+                Esporta in Excel
+                </button>
+                </div>
             <div className="bg-white rounded shadow p-6 mt-4">
-                <h2 className="text-xl font-bold mb-4">Risultati</h2>
-                    <table className="min-w-max border border-gray-300 rounded">
+                    <table className="min-w-max border border-gray-300 rounded justify-center">
                         <thead className="bg-gray-200">
                             <tr>
                                 <th className="border px-4 py-2">ID</th>
@@ -53,14 +60,7 @@ function Dashboard({ isVisible }) {
                         </tbody>
                     </table>
                 </div>
-                <div className="flex justify-center mt-4">
-                    <button
-                    onClick={exportToExcel}
-                    className="bg-gray-400 text-white px-4 py-2 rounded hover:bg-blue-600"
-                >
-                    Esporta in Excel
-                </button>
-                </div>
+               
                 </div>
                 
              

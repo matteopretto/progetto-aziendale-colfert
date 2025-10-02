@@ -8,7 +8,11 @@ function LoginPage({setIsLoggedIn}) {
                 <div>
                     <Logo />
                 </div>
-                <h1 id="titolo" className="-ml-40">COLFERT STATISTICS</h1>
+                 <div className="flex flex-col items-start -ml-40">
+        <h1 className="text-3xl font-bold text-gray-700">COLFERT STATISTICS</h1>
+        <div className="w-[100%] border-b-2 border-black mt-1"></div>
+    </div>
+               
             </div>
             <div className=" top-0 left-0 w-full h-1/3 rounded-b-3xl"></div>
             <LoginForm setIsLoggedIn={setIsLoggedIn}/>

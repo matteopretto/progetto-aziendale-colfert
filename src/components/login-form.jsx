@@ -46,7 +46,7 @@ function LoginForm({ setIsLoggedIn }) {
 
     return (
 
-        <div className="bg-white p-12 rounded shadow-md w-2/5 min-h-[50vh]">
+        <div className="bg-white p-12 rounded shadow-md w-3/7 min-h-[50vh]">
 
             <h2 className="text-2xl font-bold mb-6 text-center">{intro}</h2>
 
