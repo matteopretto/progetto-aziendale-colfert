@@ -11,6 +11,16 @@ function MainPage() {
     const [showDashboard, setShowDashboard] = useState(false);
     const [showFilter, setShowFilter]= useState(false);
 
+    const [ordini, setOrdini] = useState([]);
+
+    const fetchOrdini = async (filters) => {
+      const query = new URLSearchParams(filters).toString();
+      console.log("Query string:", query);
+      const res = await fetch(`http://localhost:3001/orders?${query}`);
+      const data = await res.json();
+      setOrdini(data);
+    };
+
     const toggleSidebar = () => setIsSidebarOpen(prev => !prev)
 
 
@@ -24,12 +34,12 @@ function MainPage() {
 
                 <div className="flex-1 transition-all duration-300 flex flex-col">
                     <div className=" w-full">
-                        <FormFiltri showFilter={showFilter} sezione={sezioneAttiva} setTxt={setText} setShowDashboard={setShowDashboard} />
+                        <FormFiltri showFilter={showFilter} sezione={sezioneAttiva} setTxt={setText} setShowDashboard={setShowDashboard} fetchOrdini={fetchOrdini}/>
                     </div>
                     <div className="h-0.5 bg-black"></div>
                     <div className="bg-white rounded shadow p-6 flex-1">
 
-                        {showDashboard && <Dashboard  isVisible={showDashboard} />}
+                        {showDashboard && <Dashboard  isVisible={showDashboard} ordini={ordini} />}
                     </div>
                 </div>
             </div>

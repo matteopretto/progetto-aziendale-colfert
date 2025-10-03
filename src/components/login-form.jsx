@@ -11,7 +11,7 @@ function LoginForm({ setIsLoggedIn }) {
     const [tentativi, setTentativi] = useState(0);
 
     const [actulaUsername, setActualUsername] = useState("");
-    const { actualPassword, setActualPassword } = useState("");
+    const [ actualPassword, setActualPassword ] = useState("");
 
 
 
