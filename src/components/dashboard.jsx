@@ -1,7 +1,18 @@
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
+import { useState } from 'react';
+import MailPopup from './mail-popup';
+
+
+
 
 function Dashboard({ isVisible, ordini }) {
+
+    const [showPopupMail, setShowPopupMail] = useState(false);
+    const showPopUpMail = () => setShowPopupMail(!showPopupMail);
+    const closePopUpMail = () => setShowPopupMail(false);
+
+    const role = localStorage.getItem('user-role');
 
     const exportToExcel = () => {
         if (!ordini || ordini.length === 0) return; // niente da esportare
@@ -17,16 +28,29 @@ function Dashboard({ isVisible, ordini }) {
         isVisible ? (
 
             <div className="overflow-x-auto">
+                <MailPopup
+                    visible={showPopupMail}
+                    onClose={closePopUpMail}
+                    defaultEmail={localStorage.getItem("email")}
+                />
+
                 <div className="flex justify-start mt-4">
                     <button
                         onClick={exportToExcel}
-                        className="bg-[rgb(255,186,0)] text-black px-4 py-2 rounded hover:bg-blue-600"
+                        className="bg-[rgb(255,186,0)] text-black px-4 py-2 rounded hover:bg-blue-600 mr-3"
                     >
                         Esporta in Excel
                     </button>
+                    <button
+                        onClick={showPopUpMail}
+                        className="bg-[rgb(255,186,0)] text-black px-4 py-2 rounded hover:bg-blue-600"
+                    >
+                        Invia
+                    </button>
+
                 </div>
                 <div className="bg-white rounded shadow p-6 mt-4">
-     
+
                     <table className="min-w-max border border-gray-300 rounded justify-center">
                         <thead className="bg-gray-200">
                             <tr>

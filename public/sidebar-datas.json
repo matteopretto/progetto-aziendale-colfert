@@ -1,0 +1,1082 @@
+[
+    {
+        "id": " DIREZIONE",
+        "label": "DIREZIONE",
+        "children": [
+            {
+                "id": "dir0001",
+                "label": "CONSEGNATO MENSILE",
+                "children": [
+                    {
+                        "id": "ordini",
+                        "label": "Per Settore"
+                    },
+                    {
+                        "id": "dir0000.02",
+                        "label": "Per Utente"
+                    },
+                    {
+                        "id": "dir0000.03",
+                        "label": "Per Cliente"
+                    },
+                    {
+                        "id": "dir0000.04",
+                        "label": "Per Agente"
+                    },
+                    {
+                        "id": "dir0000.05",
+                        "label": "Per Pagamento"
+                    },
+                    {
+                        "id": "dir0000.06",
+                        "label": "Per Vettore"
+                    },
+                    {
+                        "id": "dir0000.07",
+                        "label": "Per Articolo"
+                    },
+                    {
+                        "id": "dir0000.08",
+                        "label": "Per Fornitore"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": " KPI",
+        "label": "KPI",
+        "children": [
+            {
+                "id": "kpi0000",
+                "label": "GENERALI",
+                "children": [
+                    {
+                        "id": "kpi0000.01",
+                        "label": "Statistiche generali centralino"
+                    },
+                    {
+                        "id": "kpi0000.02",
+                        "label": "Statistiche ordine per utente"
+                    },
+                    {
+                        "id": "kpi0000.03",
+                        "label": "Statistiche preventivi per utente"
+                    },
+                    {
+                        "id": "kpi0000.04",
+                        "label": "Statistiche centralino per utente"
+                    },
+                    {
+                        "id": "kpi0000.05",
+                        "label": "Ordini Prenota/Ritira per utente e settore"
+                    },
+                    {
+                        "id": "kpi0000.06",
+                        "label": "Consegnato e conto fatture"
+                    },
+                    {
+                        "id": "kpi0000.07",
+                        "label": "Statistiche preventivi/ordini per utente e settore"
+                    },
+                    {
+                        "id": "kpi0000.08",
+                        "label": "Conto teste e righe"
+                    }
+                ]
+            },
+            {
+                "id": "kpi0001",
+                "label": "STATISTICHE PER SETTORE",
+                "children": [
+                    {
+                        "id": "kpi0001.01",
+                        "label": "Prodotto finito per utente"
+                    },
+                    {
+                        "id": "kpi0001.02",
+                        "label": "Legno pvc per utente"
+                    },
+                    {
+                        "id": "kpi0001.03",
+                        "label": "Prodotto finito per agente"
+                    },
+                    {
+                        "id": "kpi0001.04",
+                        "label": "Alluminio ferro per agente"
+                    },
+                    {
+                        "id": "kpi0001.05",
+                        "label": "Legno pvc per agente"
+                    }
+                ]
+            },
+            {
+                "id": "kpi0002",
+                "label": "STATISTICHE PER PUNTO VENDITA",
+                "children": [
+                    {
+                        "id": "kpi0002.01",
+                        "label": "Ordini per utente"
+                    },
+                    {
+                        "id": "kpi0002.02",
+                        "label": "Preventivi per utente"
+                    },
+                    {
+                        "id": "kpi0002.03",
+                        "label": "Centralino per utente"
+                    }
+                ]
+            },
+            {
+                "id": "kpi0003",
+                "label": "STATISTICHE PER PRODOTTO FINITO",
+                "children": [
+                    {
+                        "id": "kpi0003.01",
+                        "label": "Documenti e righe per utente"
+                    }
+                ]
+            },
+            {
+                "id": "kpi0004",
+                "label": "STATISTICHE VARIE",
+                "children": [
+                    {
+                        "id": "kpi0004.01",
+                        "label": "Spese di trasporto"
+                    },
+                    {
+                        "id": "kpi0004.02",
+                        "label": "Proporzione evasione totale sugli ordini"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "COMMERCIALE",
+        "label": "COMMERCIALE",
+        "children": [
+            {
+                "id": "com0001",
+                "label": "CONSEGNATO ANNUALE PER MESE CONTRO ANNO PRECEDENTE",
+                "children": [
+                    {
+                        "id": "com0001.01",
+                        "label": "Consegnato Per settore"
+                    },
+                    {
+                        "id": "com0001.02",
+                        "label": "Consegnato per utente"
+                    },
+                    {
+                        "id": "com0001.03",
+                        "label": "Consegnato per cliente"
+                    },
+                    {
+                        "id": "com0001.04",
+                        "label": "Consegnato per agente"
+                    },
+                    {
+                        "id": "com0001.07",
+                        "label": "Consegnato per articolo"
+                    },
+                    {
+                        "id": "com0001.08",
+                        "label": "Consegnato per fornitore"
+                    },
+                    {
+                        "id": "com0001.09",
+                        "label": "Teste e righe ordini per utente"
+                    },
+                    {
+                        "id": "com0001.10",
+                        "label": "Teste e righe ordini per classe utente"
+                    },
+                    {
+                        "id": "com0001.11",
+                        "label": "Consegnato per Settore/Utente/Cliente"
+                    },
+                    {
+                        "id": "com0001.12",
+                        "label": "Teste e righe ordini per utente"
+                    },
+                    {
+                        "id": "com0001.13",
+                        "label": "Consegnato per fornitore e classe documento"
+                    },
+                    {
+                        "id": "com0001.14",
+                        "label": "Ordinato per utente e classe utente"
+                    },
+                    {
+                        "id": "com0001.15",
+                        "label": "Punti 'YELPUNTIPOSA' per cliente"
+                    },
+                    {
+                        "id": "com0001.16",
+                        "label": "Punti 'YELPUNTIPOSA' per agente"
+                    },
+                    {
+                        "id": "com0001.17",
+                        "label": "Punti 'YELPUNTIPOSA' per agente e cliente"
+                    },
+                    {
+                        "id": "com0001.18",
+                        "label": "Statistica Kanban per cliente"
+                    },
+                    {
+                        "id": "com0001.19",
+                        "label": "SpazioGS"
+                    },
+                    {
+                        "id": "com0001.20",
+                        "label": "Consegnato per settore con fornitore e buyer"
+                    }
+                ]
+            },
+            {
+                "id": "com0002",
+                "label": "ORDINATO",
+                "children": [
+                    {
+                        "id": "com0002.01",
+                        "label": "Elenco ordini OCW automatizzati"
+                    },
+                    {
+                        "id": "com0002.02",
+                        "label": "Statistiche ordini OCW automatizzati"
+                    },
+                    {
+                        "id": "com0002.03",
+                        "label": "Elenco ordini con pagamento anticipato per anno"
+                    },
+                    {
+                        "id": "com0002.04",
+                        "label": "Sconto >=60+8 per fornitore per LEGNO PVC"
+                    },
+                    {
+                        "id": "com0002.05",
+                        "label": "Sconto >=60+8 per fornitore per ALLUMINIO"
+                    },
+                    {
+                        "id": "com0002.06",
+                        "label": "OCV e OCW con pagamento ANT"
+                    },
+                    {
+                        "id": "com0002.07",
+                        "label": "Ordini di invenduto"
+                    },
+                    {
+                        "id": "com0002.08",
+                        "label": "Ordini locker"
+                    },
+                    {
+                        "id": "com0002.09",
+                        "label": "Conto teste e importo per mese OCV e OCW"
+                    }
+                ]
+            },
+            {
+                "id": "com0003",
+                "label": "KPI",
+                "children": [
+                    {
+                        "id": "com0003.01",
+                        "label": "Nuovi KPI ufficio"
+                    }
+                ]
+            },
+            {
+                "id": "com0004",
+                "label": "ALTRE STATISTICHE",
+                "children": [
+                    {
+                        "id": "com0004.01",
+                        "label": "Elenco clienti di agente per fatturato"
+                    },
+                    {
+                        "id": "com0004.02",
+                        "label": "Numero di righe di articoli sconfezionati"
+                    },
+                    {
+                        "id": "com0004.03",
+                        "label": "Confronto consegnato I trimestre anno corrente e precedente"
+                    },
+                    {
+                        "id": "com0004.04",
+                        "label": "Analisi omaggi"
+                    },
+                    {
+                        "id": "com0004.05",
+                        "label": "Prezzi particolari per codice fornitore o gruppo prezzi"
+                    },
+                    {
+                        "id": "com0004.06",
+                        "label": "Confronto consegnato e ordinato autonomo"
+                    },
+                    {
+                        "id": "com0004.07",
+                        "label": "Consegnato/Costo/Margine e Nr Consegne anno corrente e precedente"
+                    }
+                ]
+            },
+            {
+                "id": "com0005",
+                "label": "DOCUMENTI SPECIALI",
+                "children": [
+                    {
+                        "id": "com0005.01",
+                        "label": "Teste ordinato speciale per agente"
+                    },
+                    {
+                        "id": "com0005.02",
+                        "label": "Righe ordinato speciale per cliente e articolo"
+                    }
+                ]
+            },
+            {
+                "id": "com0006",
+                "label": "CONSEGNATO ANNUALE PER MESE SENZA OMAGGI",
+                "children": [
+                    {
+                        "id": "com0006.01",
+                        "label": "Consegnato per settore"
+                    },
+                    {
+                        "id": "com0006.02",
+                        "label": "Consegnato per utente"
+                    },
+                    {
+                        "id": "com0006.03",
+                        "label": "Consegnato per Cliente"
+                    },
+                    {
+                        "id": "com0006.04",
+                        "label": "Consegnato per Agente"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": " ALLUMINIO_FERRO",
+        "label": "ALLUMINIO-FERRO",
+        "children": [
+            {
+                "id": "all0001",
+                "label": "Confronto ricevimento/costo/spedito ad oggi"
+            },
+            {
+                "id": "all0002",
+                "label": "Confronto ricevimento/costo/spedito anno solare"
+            },
+            {
+                "id": "all0003",
+                "label": "Confronto ricevimento/costo/spedito per mese"
+            },
+            {
+                "id": "all0004",
+                "label": "Sconto medio fornitore per anno"
+            }
+        ]
+    },
+    {
+        "id": "LEGNO_PVC",
+        "label": "LEGNO-PVC",
+        "children": [
+            {
+                "id": "leg0001",
+                "label": "Confronto ricevimento/costo/spedito ad oggi"
+            },
+            {
+                "id": "leg0002",
+                "label": "Confronto ricevimento/costo/spedito anno solare"
+            },
+            {
+                "id": "leg0003",
+                "label": "Confronto ricevimento/costo/spedito per mese"
+            },
+            {
+                "id": "leg0004",
+                "label": "Sconto medio fornitore per anno"
+            }
+        ]
+    },
+    {
+        "id": "PRODOTTO_FINITO",
+        "label": "PRODOTTO FINITO",
+        "children": [
+            {
+                "id": "pro0001",
+                "label": "Confronto ricevimento/costo/spedito ad oggi"
+            },
+            {
+                "id": "pro0002",
+                "label": "Confronto ricevimento/costo/spedito anno solare"
+            },
+            {
+                "id": "pro0003",
+                "label": "Spedito per agente da data a data fornitori Waterproof"
+            },
+            {
+                "id": "pro0005",
+                "label": "Spedito per utente, agente e fornitore"
+            },
+            {
+                "id": "pro0006",
+                "label": "Spedito prodotto finito diviso per generici e non"
+            },
+            {
+                "id": "pro0007",
+                "label": "Statistica Waterproof     15->20"
+            },
+            {
+                "id": "pro0010",
+                "label": "Conto teste e righe per operatore"
+            },
+            {
+                "id": "pro0011",
+                "label": "Righe di ordini scaduti ancora aperte"
+            },
+            {
+                "id": "pro0012",
+                "label": "Resi del prodotto finito"
+            },
+            {
+                "id": "pro0013",
+                "label": "Quantità di resi per utente/agente"
+            },
+            {
+                "id": "pro0014",
+                "label": "Elenco righe acquisto con giorni di permanenza in magazzino"
+            },
+            {
+                "id": "pro0015",
+                "label": "Analisi permanenza in magazzino per fornitore"
+            },
+            {
+                "id": "pro0016",
+                "label": "Venduto prodotto finito con proiezione (ordinato aperto)"
+            },
+            {
+                "id": "pro0017",
+                "label": "Venduto cat. fornitoreprodotto finito con sconti"
+            },
+            {
+                "id": "pro0018",
+                "label": "Venduto prodotto finito con proiezione (ordinato aperto)(tutti i prodotti) "
+            },
+            {
+                "id": "pro0019",
+                "label": "Giorni di ritardo per fornitori e date"
+            },
+            {
+                "id": "pro0020",
+                "label": "Conto teste e righe per operatore/fornitore"
+            },
+            {
+                "id": "pro0021",
+                "label": "Ordini causa errore"
+            },
+            {
+                "id": "pro0022",
+                "label": "Mini scadenziario acquisti"
+            },
+            {
+                "id": "pro0023",
+                "label": "Verifica preventivi"
+            },
+            {
+                "id": "pro0024",
+                "label": "Consegne Ermetec"
+            },
+            {
+                "id": "pro0025",
+                "label": "Consegne e nr DFA per utente"
+            },
+            {
+                "id": "pro0026",
+                "label": "Confronto ricevimento/costo/spedito per mese"
+            },
+            {
+                "id": "pro0027",
+                "label": "Sconto medio fornitore per anno"
+            },
+            {
+                "id": "pro0028",
+                "label": "Non conformità"
+            },
+            {
+                "id": "pro0029",
+                "label": "Orditato cat. fornitore Prodotto finito con sconti"
+            }
+        ]
+    },
+    {
+        "id": "ACQUISTI",
+        "label": "ACQUISTI",
+        "children": [
+            {
+                "id": "acq0001",
+                "label": "Quantità e importo per utente / fornitore / tipo articolo"
+            },
+            {
+                "id": "acq0002",
+                "label": "Prezzi Particolari per Clienti"
+            },
+            {
+                "id": "acq0003",
+                "label": "Prezzi Particolari per Fornitori"
+            },
+            {
+                "id": "acq0004",
+                "label": "Rotture di stock"
+            },
+            {
+                "id": "acq0005",
+                "label": "Giacenza Immediata e storico vendite estesa"
+            },
+            {
+                "id": "acq0006",
+                "label": "Confronto venduto e costo per fornitore"
+            },
+            {
+                "id": "acq0007",
+                "label": "Confronto venduto e costo per cliente"
+            },
+            {
+                "id": "acq0008",
+                "label": "Listino"
+            },
+            {
+                "id": "acq0009",
+                "label": "Articoli non movimentati ultimo anno mobile"
+            },
+            {
+                "id": "acq0010",
+                "label": "Variazioni di magazzino"
+            },
+            {
+                "id": "acq0011",
+                "label": "Confronto date negli ordini di acquisto anno corrente"
+            },
+            {
+                "id": "acq0012",
+                "label": "Verifica extra sconto"
+            },
+            {
+                "id": "acq0013",
+                "label": "Venduto cliente per anno, mese e fornitore"
+            },
+            {
+                "id": "acq0014",
+                "label": "Ordinato cliente per anno, mese e fornitore"
+            },
+            {
+                "id": "acq0015",
+                "label": "Ritardi ordini fornitore aperti"
+            },
+            {
+                "id": "acq0016",
+                "label": "Articoli non movimentati ultimo anno mobile TV"
+            },
+            {
+                "id": "acq0017",
+                "label": "Articoli non movimentati ultimo anno mobile VA"
+            }
+        ]
+    },
+    {
+        "id": "AMMINISTRAZIONE",
+        "label": "AMMINISTRAZIONE",
+        "children": [
+            {
+                "id": "amm0001",
+                "label": "Clienti bollettati che non hanno invio fattura per email"
+            },
+            {
+                "id": "amm0002",
+                "label": "Ricerca nomenclature diverse tra anagrafica e ultime fatture"
+            },
+            {
+                "id": "amm0003",
+                "label": "Aggiornamento stato report bolle post fatturazione per evitare generazione pdf"
+            },
+            {
+                "id": "amm0004",
+                "label": "Statistica RiskPredictor"
+            },
+            {
+                "id": "amm0005",
+                "label": "Data e documento ultimo utilizzo di un pagamento"
+            },
+            {
+                "id": "amm0006",
+                "label": "Grade dei clienti"
+            },
+            {
+                "id": "amm0007",
+                "label": "Fatture con flag split payment acceso"
+            },
+            {
+                "id": "amm0008",
+                "label": "Resi per anno con origini"
+            },
+            {
+                "id": "amm0009",
+                "label": "Consegnato per anno e settore"
+            },
+            {
+                "id": "amm0010",
+                "label": "Clienti che hanno bolle e fatture aperte e non hanno in anagrafica né SDI né PEC ruolo 18"
+            },
+            {
+                "id": "amm0011",
+                "label": "Clienti che hanno bolle e fatture aperte e hanno il flag 'Persona fisica' sporco"
+            },
+            {
+                "id": "amm0012",
+                "label": "Confronto fatture con flag 'bollo virtuale' e clienti con codice IVA diverso da 218"
+            },
+            {
+                "id": "amm0013",
+                "label": "Mese di fatturazione errato"
+            },
+            {
+                "id": "amm0014",
+                "label": "Elenco clienti con bolle o fatture aperte e senza codice fiscale"
+            },
+            {
+                "id": "amm0015",
+                "label": "Elenco fornitori dei premi suddivisi per CDC"
+            },
+            {
+                "id": "amm0016",
+                "label": "Calcolo imponibile per provvigioni specialisti di prodotto"
+            },
+            {
+                "id": "amm0017",
+                "label": "Statistica Spese Trasporto per provvigioni agente"
+            },
+            {
+                "id": "amm0018",
+                "label": "DCB con trasporto a cura vettore"
+            },
+            {
+                "id": "amm0019",
+                "label": "Consegnato per centro di costo e giorno separato per conti COGE"
+            },
+            {
+                "id": "amm0020",
+                "label": "Bolle aperte con CIG e CUP"
+            },
+            {
+                "id": "amm0021",
+                "label": "Stato blocco clienti scelti"
+            },
+            {
+                "id": "amm0022",
+                "label": "Fatture con IVA 218 e senza Dich.Intento"
+            },
+            {
+                "id": "amm0023",
+                "label": "Estrazione Patrizia Documenti Di Carico"
+            },
+            {
+                "id": "amm0024",
+                "label": "Estrazione anagrafica fornitori"
+            },
+            {
+                "id": "amm0025",
+                "label": "Estrazione anagrafica clienti + Cribis"
+            },
+            {
+                "id": "amm0026",
+                "label": "Ricerca IBAN (imposta il filtro)"
+            },
+            {
+                "id": "amm0027",
+                "label": "Verifica Punti 2022"
+            },
+            {
+                "id": "amm0028",
+                "label": "Verifica Punti 2022 short"
+            },
+            {
+                "id": "amm0029",
+                "label": "Estrazione fatture per cliente ed anno"
+            },
+            {
+                "id": "amm0030",
+                "label": "Provvigioni specialisti per anno e mese"
+            },
+            {
+                "id": "amm0031",
+                "label": "Fidi e autocopertura"
+            },
+            {
+                "id": "amm0032",
+                "label": "Provvigioni specialisti per DCM"
+            },
+            {
+                "id": "amm0201",
+                "label": "Magazzino Ferport e rilevazioni incrociate"
+            },
+            {
+                "id": "amm0202",
+                "label": "Inventario originale Ferport"
+            },
+            {
+                "id": "amm0203",
+                "label": "Rilevazioni attuali"
+            }
+        ]
+    },
+    {
+        "id": "RISORSE_UMANE",
+        "label": "RISORSE UMANE",
+        "children": [
+            {
+                "id": "ris0001",
+                "label": "Provvigioni commerciali interni per anno e mese"
+            }
+        ]
+    },
+    {
+        "id": "UTENSILERIA",
+        "label": "UTENSILERIA",
+        "children": [
+            {
+                "id": "ute0001",
+                "label": "Acquistato e venduto fornitori scelti"
+            },
+            {
+                "id": "ute0002",
+                "label": "Giacenze e costo per fornitore"
+            },
+            {
+                "id": "ute0005",
+                "label": "Confronto Ricevimento/costo/spedito anno"
+            },
+            {
+                "id": "ute0006",
+                "label": "Numero clienti nuovi anno mobile"
+            },
+            {
+                "id": "ute0007",
+                "label": "Venduto e acquistato da articolo ad articolo"
+            },
+            {
+                "id": "ute0008",
+                "label": "Confronto Ricevimento/costo/spedito ad oggi"
+            },
+            {
+                "id": "ute0009",
+                "label": "Confronto Ricevimento/costo/spedito anno solare"
+            },
+            {
+                "id": "ute0011",
+                "label": "Confronto Ricevimento/costo/spedito per mese"
+            },
+            {
+                "id": "ute0015",
+                "label": "Consegnato anno rolling per fornitore"
+            },
+            {
+                "id": "ute0016",
+                "label": "Consegnato Utensileria 3 anni per agente"
+            }
+        ]
+    },
+    {
+        "id": "FURGONE",
+        "label": "FURGONE",
+        "children": [
+            {
+                "id": "fur0001",
+                "label": "Ordini 'Furgone utensileria'"
+            },
+            {
+                "id": "fur0002",
+                "label": "Ordini 'Furgone utensileria' per riga con provvigione"
+            },
+            {
+                "id": "fur0003",
+                "label": "Consegnato Utensileria 3 anni per agente con specialista"
+            }
+        ]
+    },
+    {
+        "id": "MAGAZZINO",
+        "label": "MAGAZZINO",
+        "children": [
+            {
+                "id": "mag0001",
+                "label": "Giacenze attuali"
+            },
+            {
+                "id": "mag0002",
+                "label": "Monitor ACEMA"
+            },
+            {
+                "id": "mag0003",
+                "label": "Articoli in Modula"
+            },
+            {
+                "id": "mag0004",
+                "label": "Conto teste e righe"
+            },
+            {
+                "id": "mag0005",
+                "label": "Movimentazione di magazzino"
+            },
+            {
+                "id": "mag0006",
+                "label": "Attività di oggi"
+            },
+            {
+                "id": "mag0007",
+                "label": "Attività in corso"
+            },
+            {
+                "id": "mag0008",
+                "label": "Conto teste e righe"
+            },
+            {
+                "id": "mag0009",
+                "label": "Conto teste e righe per tipo documento"
+            },
+            {
+                "id": "mag0010",
+                "label": "Conto Teste e righe Picking"
+            },
+            {
+                "id": "mag0011",
+                "label": "Conto Teste e righe Acema (tra)"
+            },
+            {
+                "id": "mag0012",
+                "label": "Conto Teste e righe Resi"
+            },
+            {
+                "id": "mag0013",
+                "label": "Conto Teste e righe per mese e tipo documento"
+            }
+        ]
+    },
+    {
+        "id": "OFFICINA_WEB",
+        "label": "OFFICINA WEB",
+        "children": [
+            {
+                "id": "web0001",
+                "label": "Conto e Importo consegne anno corrente e precedente clienti A50"
+            },
+            {
+                "id": "web0002",
+                "label": "Haustüren - statistica per articolo"
+            },
+            {
+                "id": "web0003",
+                "label": "Haustüren - statistica per cliente"
+            },
+            {
+                "id": "web0004",
+                "label": "Ordinato Susi per Settore"
+            },
+            {
+                "id": "web0005",
+                "label": "Haustüren - Consegnato e Acquistato"
+            },
+            {
+                "id": "web0006",
+                "label": "Ordini OCE per riga"
+            },
+            {
+                "id": "web0007",
+                "label": "Statistiche A 50 per categoria fornitore"
+            }
+        ]
+    },
+    {
+        "id": "MARKETING",
+        "label": "MARKETING",
+        "children": [
+            {
+                "id": "mar0001",
+                "label": "Stato dei clienti con budget"
+            },
+            {
+                "id": "mar0002",
+                "label": "Elenco clienti con rubrica e fatturato che hanno ruolo colfertwindow"
+            },
+            {
+                "id": "mar0003",
+                "label": "Elenco fornitori con rubrica e fatturato che hanno ruolo colfertwindow"
+            },
+            {
+                "id": "mar0004",
+                "label": "Elenco clienti con fatturati anno precedente e corrente"
+            },
+            {
+                "id": "mar0005",
+                "label": "Confronto ordinato per trimestri tra clienti che hanno agente e ordinato in un anno >= 2000€ (specificare anno)"
+            },
+            {
+                "id": "mar0006",
+                "label": "Tabella Punti 2019"
+            },
+            {
+                "id": "mar0007",
+                "label": "Tabella Punti 2022"
+            }
+        ]
+    },
+    {
+        "id": "CED_AGENTI",
+        "label": "CED AGENTI",
+        "children": [
+            {
+                "id": "age0001",
+                "label": "Consegnato per cliente per fornitore (immettere codice fornitore completo)"
+            },
+            {
+                "id": "age0003",
+                "label": "Consegnato per agente e cliente con numero di consegne"
+            },
+            {
+                "id": "age0004",
+                "label": "Canvass"
+            },
+            {
+                "id": "age0005",
+                "label": "Consegnato per cliente per fornitore (immettere codice fornitore completo) con periodo precedente"
+            },
+            {
+                "id": "age0006",
+                "label": "Consegnato specialista Accessi Automatici"
+            },
+            {
+                "id": "age0007",
+                "label": "Ordini di tipo Accessi Automatici"
+            }
+        ]
+    },
+    {
+        "id": "NEGOZIO",
+        "label": "NEGOZIO",
+        "children": [
+            {
+                "id": "neg_treviso",
+                "label": "NEGOZIO TREVISO",
+                "children": [
+                    {
+                        "id": "neg0001",
+                        "label": "Consegnato punto vendita mensile per utente"
+                    },
+                    {
+                        "id": "neg0003",
+                        "label": "Consegnato punto vendita quotidiano per utente"
+                    },
+                    {
+                        "id": "neg0005",
+                        "label": "Statistiche utenti per categoria fornitore"
+                    },
+                    {
+                        "id": "neg0006",
+                        "label": "Statistica vendite per agente"
+                    },
+                    {
+                        "id": "neg0009",
+                        "label": "Percentuale di ritorno dei preventivi"
+                    },
+                    {
+                        "id": "neg0010",
+                        "label": "Giacenze Negozio"
+                    },
+                    {
+                        "id": "neg0011",
+                        "label": "Articoli più venduti"
+                    },
+                    {
+                        "id": "neg0012",
+                        "label": "Statistica per utente e da articolo ad articolo"
+                    },
+                    {
+                        "id": "neg0013",
+                        "label": "Verifica doppio utente"
+                    },
+                    {
+                        "id": "neg0014",
+                        "label": "Statistica vendite per agente senza art speciali"
+                    },
+                    {
+                        "id": "neg0015",
+                        "label": "Consegnato punto vendita mensile per utente senza omaggi"
+                    },
+                    {
+                        "id": "neg0016",
+                        "label": "Consegnato punto vendita quotidiano per utente senza omaggi"
+                    },
+                    {
+                        "id": "neg0017",
+                        "label": "Ordinato negozi per marchio"
+                    },
+                    {
+                        "id": "neg0018",
+                        "label": "OCW con predominanza Utensileria"
+                    }
+                ]
+            },
+            {
+                "id": "neg_varese",
+                "label": "NEGOZIO VARESE",
+                "children": [
+                    {
+                        "id": "neg1001",
+                        "label": "Consegnato punto vendita mensile per utente"
+                    },
+                    {
+                        "id": "neg1003",
+                        "label": "Consegnato punto vendita quotidiano per utente"
+                    },
+                    {
+                        "id": "neg1005",
+                        "label": "Statistiche utenti per categoria fornitore"
+                    },
+                    {
+                        "id": "neg1009",
+                        "label": "Percentuale di ritorno dei preventivi"
+                    },
+                    {
+                        "id": "neg1010",
+                        "label": "Giacenze Negozio"
+                    },
+                    {
+                        "id": "neg1011",
+                        "label": "Articoli più venduti"
+                    },
+                    {
+                        "id": "neg1012",
+                        "label": "Statistica per utente e da articolo ad articolo"
+                    },
+                    {
+                        "id": "neg1013",
+                        "label": "Verifica doppio utente (fake)"
+                    },
+                    {
+                        "id": "neg1015",
+                        "label": "Consegnato punto vendita mensile per utente senza omaggi"
+                    },
+                    {
+                        "id": "neg1016",
+                        "label": "Consegnato punto vendita quotidiano per utente senza omaggi"
+                    }
+                ]
+            }
+        ]
+    }
+]

@@ -1,42 +1,112 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MainPage from "../pages/main-page";
+import '../libs/extensions';
+import { ShieldAlert, BadgeQuestionMark } from "lucide-react";
+
+
+
 
 function LoginForm({ setIsLoggedIn }) {
 
     const navigate = useNavigate();
     const [intro, setIntro] = useState("INSERISCI LE TUE CREDENZIALI");
+    const [errore, setErrore] = useState("");
     const [btn, setBtn] = useState("ACCEDI");
     const [isError, setIsError] = useState(false);
     const [tentativi, setTentativi] = useState(0);
 
     const [actulaUsername, setActualUsername] = useState("");
-    const [ actualPassword, setActualPassword ] = useState("");
+    const [actualPassword, setActualPassword] = useState("");
+    const [remember, setRemember] = useState(false);
+
+    const [showPopup, setShowPopup] = useState(false);
+
+    const showPopUp = () => setShowPopup(!showPopup);
+    const closePopUp = () => setShowPopup(false);
+
+
+    useEffect(() => {
+        const savedUsername = localStorage.getItem('savedUsername');
+        const savedPassword = localStorage.getItem('savedPassword');
+
+        if (savedUsername && savedPassword) {
+            setActualUsername(savedUsername);
+            setActualPassword(savedPassword);
+            setRemember(true);
+        }
+    }, []);
+
+    useEffect(() => {
+  fetch("/id-queries.json")
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("JSON caricato:", data);
+      const keys = Object.keys(data).slice(0, 4);
+      keys.forEach((key) => {
+        console.log(`ID: ${key}`);
+        console.log(data[key].slice(0, 2600) + "..."); 
+      });
+    })
+    .catch((err) => console.error("Errore caricamento JSON:", err));
+}, []);
 
 
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         if (!isError) {
-            setTentativi(tentativi + 1);
             const username = event.target.username.value;
             const password = event.target.password.value;
 
-            const successfulLogin = (username === 'a' && password === 'a');
+            console.log("Tentativo di login con username:", username, password);
+            setTentativi(tentativi + 1);
 
-            if (!successfulLogin) {
-                setIntro("ERRORE 401: CREDENZIALI ERRATE");
+            try {
+                const response = await fetch("http://localhost:3001/api/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ code: username, password })
+                });
+
+                const data = await response.json();
+                console.log("Risposta dal server:", data);
+
+                if (data.success) {
+                    if (remember) {
+                        localStorage.setItem('savedUsername', username);
+                        localStorage.setItem('savedPassword', password);
+                        console.log("role:", data.user.role);
+                        localStorage.setItem('user-role', data.user.role);
+                        localStorage.setItem('email', data.user.email);
+                    } else {
+                        localStorage.removeItem('savedUsername');
+                        localStorage.removeItem('savedPassword');
+                        localStorage.removeItem('user-role');
+                        localStorage.removeItem('email');
+                    }
+
+                    setIsLoggedIn(true);
+                    navigate('/dashboard');
+                    setTentativi(0);
+                    setActualUsername(username);
+                    setActualPassword("");
+                } else {
+                    setIntro("ERRORE 401: CREDENZIALI ERRATE");
+                    setBtn("RIPROVA");
+                    setErrore("Le credenziali che hai inserito non sono valide.");
+                    setIsError(true);
+                }
+            } catch (err) {
+                setIntro("ERRORE 500: ERRORE DEL SERVER");
                 setBtn("RIPROVA");
                 setIsError(true);
+                setErrore("Sembra che ci sia un errore con il server.");
+                console.error(err);
             }
-            else {
 
-                setIsLoggedIn(true);
-                navigate('/dashboard');
-                setTentativi(0);
-                setActualUsername(username);
-                setActualPassword(password);
-            }
         } else {
             setIntro("INSERISCI LE TUE CREDENZIALI");
             setBtn("ACCEDI");
@@ -55,32 +125,53 @@ function LoginForm({ setIsLoggedIn }) {
                     {!isError ? (
                         <><label className="text-gray-700 mr-4" htmlFor="username"><span>Username</span></label><input className="w-4/7 p-[1%] text-[1vw] border border-gray-300 rounded mb-[6%]" type="text" id="username" name="username" defaultValue={actulaUsername} required /></>
                     ) : (
-                        <p className="text-red-500 font-bold">Hai inserito username e/o password errata. Ti invitiamo a riprovare.</p>
+                        <p className="text-red-500 font-bold">{errore}</p>
                     )}
 
 
                 </div>
-                <div className="mr-4">
+                <div className="mr-4 mb-3">
                     {!isError ? (
                         <><label className=" text-gray-700 mr-4" htmlFor="password"><span>Password</span></label><input className=" w-4/7 p-[1%] text-[1vw] border border-gray-300 rounded mb-[6%]" type="password" id="password" name="password" defaultValue={actualPassword} required /></>
                     ) : (
-                        <p className="text-red-500 font-bold">Se il problema dovesse persistere contatta l'assistenza.</p>
+                        <p className="text-red-500 font-bold">Se il problema dovesse persistere contatta l'ufficio IT.</p>
                     )}
 
                 </div>
                 <div className="flex items-center mb-4">
                     {!isError ? (
 
-                        <><input type="checkbox" id="reminder" name="reminder" className="mr-4" /><label className="text-gray-700 " for="reminder">Remember me</label></>
+                        <><input type="checkbox" id="reminder" name="reminder" className="mr-4" checked={remember} onChange={(e) => setRemember(e.target.checked)} /><label className="text-gray-700 " for="reminder">Remember me</label></>
 
                     ) : (
-                        <p className="font-bold">Hai gia effettuato:{tentativi} tentativi.</p>
+
+                        <ShieldAlert className="text-red-500 w-[4em] h-[4em]" />
+
+
                     )}
                 </div>
 
                 <div className="mb-[6%]">
-                    <button className="w-[20] bg-blue-500 text-white p-2 rounded hover:bg-blue-600" type="submit">{btn}</button>
+                    <button className="w-[20] bg-[rgb(255,186,0)] text-black p-2 rounded hover:bg-blue-600" type="submit">{btn}</button>
                 </div>
+                <div>
+
+                    <BadgeQuestionMark className="w-[2em] h-[2em] text-gray-500 inline-block mr-2" onClick={showPopUp} />
+                </div>
+                {showPopup && (
+                    <div className="absolute top-0 left-0 w-full flex items-center justify-center z-50 mt-5">
+                        <div className="bg-gray-400 p-6 rounded shadow-lg w-1/2 relative text-center">
+                            <h3 className="text-lg font-bold mb-2">HELP</h3>
+                            <p>Per accedere utilizza le tue credenziali aziendali. Per ogni problema contatta l'ufficio IT.</p>
+                            <button
+                                className="mt-4 bg-[rgb(255,186,0)] text-black px-4 py-2 rounded hover:bg-blue-600"
+                                onClick={closePopUp}
+                            >
+                                CHIUDI
+                            </button>
+                        </div>
+                    </div>
+                )}
             </form>
         </div>
     );

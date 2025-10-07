@@ -4,6 +4,7 @@ import LoginPage from './pages/login-page'
 import MainPage from './pages/main-page'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import './index.css'
+import './libs/libraries'
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -12,11 +13,10 @@ function App() {
 
   return (
     <StrictMode>
-      <p>{setIsLoggedIn}</p>
       <Router>
         <Routes>
           <Route path="/" element={<LoginPage setIsLoggedIn={setIsLoggedIn} />} />
-          <Route path="/dashboard" element={isLoggedIn ? <MainPage /> : <Navigate to="/" replace />} />
+          <Route path="/dashboard"  element={isLoggedIn ? <MainPage /> : <Navigate to="/" replace />} />
         </Routes>
       </Router>
     </StrictMode>

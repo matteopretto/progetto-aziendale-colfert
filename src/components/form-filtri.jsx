@@ -132,7 +132,7 @@ function FormFiltri({ showFilter, sezione, setTxt, setShowDashboard, fetchOrdini
             </div>) :
             (
                 <div className="bg-white p-6 rounded shadow-md w-full">
-                    <p>Seleziona dalla barra laterale i dati visualizzare.</p>
+                    <p>Seleziona dalla barra laterale i dati da visualizzare.</p>
                 </div>
             )
 
