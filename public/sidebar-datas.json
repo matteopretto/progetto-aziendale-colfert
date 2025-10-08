@@ -1,6 +1,6 @@
 [
     {
-        "id": " DIREZIONE",
+        "id": "DIREZIONE",
         "label": "DIREZIONE",
         "children": [
             {
@@ -8,35 +8,35 @@
                 "label": "CONSEGNATO MENSILE",
                 "children": [
                     {
-                        "id": "ordini",
+                        "id": "dir0001.01",
                         "label": "Per Settore"
                     },
                     {
-                        "id": "dir0000.02",
+                        "id": "dir0001.02",
                         "label": "Per Utente"
                     },
                     {
-                        "id": "dir0000.03",
+                        "id": "dir0001.03",
                         "label": "Per Cliente"
                     },
                     {
-                        "id": "dir0000.04",
+                        "id": "dir0001.04",
                         "label": "Per Agente"
                     },
                     {
-                        "id": "dir0000.05",
+                        "id": "dir0001.05",
                         "label": "Per Pagamento"
                     },
                     {
-                        "id": "dir0000.06",
+                        "id": "dir0001.06",
                         "label": "Per Vettore"
                     },
                     {
-                        "id": "dir0000.07",
+                        "id": "dir0001.07",
                         "label": "Per Articolo"
                     },
                     {
-                        "id": "dir0000.08",
+                        "id": "dir0001.08",
                         "label": "Per Fornitore"
                     }
                 ]

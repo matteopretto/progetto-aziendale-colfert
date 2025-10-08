@@ -45,7 +45,7 @@ function FormFiltri({ showFilter, sezione, setTxt, setShowDashboard, fetchOrdini
             <div className="bg-white p-6 rounded shadow-md w-full">
 
                 <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-                    {sezione === "ordini" && (
+                    {sezione === "dir0001.01" && (
                         <>
                             <div>
                                 <label className="mr-2 text-gray-700 mb-2" htmlFor="data-inizio">Data Inizio:</label>

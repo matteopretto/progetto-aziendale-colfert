@@ -1,13 +1,13 @@
 import Logo from '../components/logo';
 import LoginForm from '../components/login-form';
-import TestQuery from '../components/test-query';
+
 
 function LoginPage({setIsLoggedIn}) {
     return (
         <div className="min-h-screen relative bg-gray-100 flex flex-col items-center justify-center space-y-7">
             <div className="flex items-center space-x-0 mb-4">
                 <div>
-                    <TestQuery />
+   
                     <Logo />
                 </div>
                  <div className="flex flex-col items-start -ml-40">

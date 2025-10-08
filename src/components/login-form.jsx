@@ -38,18 +38,18 @@ function LoginForm({ setIsLoggedIn }) {
     }, []);
 
     useEffect(() => {
-  fetch("/id-queries.json")
-    .then((res) => res.json())
-    .then((data) => {
-      console.log("JSON caricato:", data);
-      const keys = Object.keys(data).slice(0, 4);
-      keys.forEach((key) => {
-        console.log(`ID: ${key}`);
-        console.log(data[key].slice(0, 2600) + "..."); 
-      });
-    })
-    .catch((err) => console.error("Errore caricamento JSON:", err));
-}, []);
+        fetch("/id-queries.json")
+            .then((res) => res.json())
+            .then((data) => {
+                console.log("JSON caricato:", data);
+                const keys = Object.keys(data).slice(0, 4);
+                keys.forEach((key) => {
+                    console.log(`ID: ${key}`);
+                    console.log(data[key].slice(0, 2600) + "...");
+                });
+            })
+            .catch((err) => console.error("Errore caricamento JSON:", err));
+    }, []);
 
 
 
@@ -75,19 +75,42 @@ function LoginForm({ setIsLoggedIn }) {
                 console.log("Risposta dal server:", data);
 
                 if (data.success) {
+                    //Questo devo metterlo qua perchè devo salvarlo a prescindere del fatto in cui l'utente vuole essere ricordato o meno
+                    const webstatsPermissions = [
+                        ...new Set(
+                            data.user.acl
+                                .filter(item => item.category === "webstats")
+                                .map(item => item.value1)
+                                .flat()
+                                .filter(Boolean)
+                        )
+                    ];
+
+                    /* 
+                    Questo mi serve per test
+                    const perm = ["dir0001","per0001", "per0002"];
+                     localStorage.setItem('permissions',  JSON.stringify(perm));
+                     */
+                    localStorage.setItem('permissions', JSON.stringify(webstatsPermissions));
+                    localStorage.setItem('user-role', data.user.role);
+                    localStorage.setItem('email', data.user.email);
+                    console.log("role:", data.user.role);
+
+
                     if (remember) {
                         localStorage.setItem('savedUsername', username);
                         localStorage.setItem('savedPassword', password);
-                        console.log("role:", data.user.role);
-                        localStorage.setItem('user-role', data.user.role);
-                        localStorage.setItem('email', data.user.email);
+
+
+
                     } else {
                         localStorage.removeItem('savedUsername');
                         localStorage.removeItem('savedPassword');
-                        localStorage.removeItem('user-role');
-                        localStorage.removeItem('email');
+
+
                     }
 
+                    console.log("Permessi:", localStorage.getItem("permissions"));
                     setIsLoggedIn(true);
                     navigate('/dashboard');
                     setTentativi(0);
