@@ -1,0 +1,962 @@
+{
+    "neg0001": [
+        "anno",
+        "sede"
+    ],
+    "neg1001": [
+        "anno"
+    ],
+    "neg0002": [
+        "anno",
+        "mese",
+        "sede"
+    ],
+    "neg1002": [
+        "anno",
+        "mese"
+    ],
+    "neg0003": [
+        "anno",
+        "mese",
+        "sede"
+    ],
+    "neg1003": [
+        "anno",
+        "mese"
+    ],
+    "neg0004": [
+        "anno",
+        "sede",
+        "mese"
+    ],
+    "neg1004": [
+        "anno",
+        "mese",
+        "sede"
+    ],
+    "neg0005": [
+        "dadata",
+        "adata",
+        "sede"
+    ],
+    "neg1005": [
+        "dadata",
+        "adata"
+    ],
+    "neg0006": [
+        "dadata",
+        "adata",
+        "agente"
+    ],
+    "neg0007": [
+        "dadata",
+        "adata",
+        "sede"
+    ],
+    "neg1007": [
+        "dadata",
+        "adata"
+    ],
+    "neg0008": [
+        "dadata",
+        "adata",
+        "sede"
+    ],
+    "neg1008": [
+        "dadata",
+        "adata"
+    ],
+    "neg0009": [
+        "dadata",
+        "adata",
+        "sede"
+    ],
+    "neg1009": [
+        "dadata",
+        "adata"
+    ],
+    "neg0010": [
+        "sede"
+    ],
+    "neg0011": [
+        "dadata",
+        "adata",
+        "sede"
+    ],
+    "neg0012": [
+        "dadata",
+        "adata",
+        "Articolo",
+        "sede"
+    ],
+    "neg1012": [
+        "dadata",
+        "adata",
+        "Articolo"
+    ],
+    "neg0013": [
+        "dadata",
+        "adata"
+    ],
+    "neg0014": [
+        "dadata",
+        "adata",
+        "agente"
+    ],
+    "neg0015": [
+        "anno",
+        "sede"
+    ],
+    "neg1015": [
+        "anno"
+    ],
+    "neg0016": [
+        "anno",
+        "mese",
+        "sede"
+    ],
+    "neg0017": [
+        "dadata",
+        "adata",
+        "codiceCliente",
+        "sede"
+    ],
+    "neg1017": [
+        "dadata",
+        "adata"
+    ],
+    "xneg0018": [
+        "dadata",
+        "adata",
+        "codiceCliente",
+        "sede"
+    ],
+    "xneg1018": [
+        "dadata",
+        "adata"
+    ],
+    "neg0018": [
+        "dadata",
+        "adata"
+    ],
+    "neg0019": [
+        "sede"
+    ],
+    "neg0020": [
+        "agente",
+        "sede"
+    ],
+    "pun0004.extract": [
+        "anno",
+        "mese"
+    ],
+    "pun0005": [
+        "anno"
+    ],
+    "pun0006": [
+        "anno",
+        "mese"
+    ],
+    "pun0007": [
+        "anno",
+        "mese"
+    ],
+    "pun0008": [
+        "anno",
+        "mese"
+    ],
+    "pun0009": [
+        "dadata",
+        "adata"
+    ],
+    "pun0010": [],
+    "pun0016": [
+        "anno",
+        "mese"
+    ],
+    "pun0017": [
+        "dadata",
+        "adata"
+    ],
+    "pun0019": [
+        "dadata",
+        "adata"
+    ],
+    "pun0018": [
+        "dadata",
+        "adata"
+    ],
+    "pun0020": [
+        "dadata",
+        "adata"
+    ],
+    "pun0021": [
+        "dadata",
+        "adata"
+    ],
+    "pun0022": [
+        "codiceCliente"
+    ],
+    "pun0023": [
+        "dadata",
+        "adata"
+    ],
+    "pun0024": [
+        "dadata",
+        "adata"
+    ],
+    "pun0025": [
+        "dadata",
+        "adata",
+        "codiceCliente"
+    ],
+    "pun0011": [
+        "anno"
+    ],
+    "pun0012": [
+        "anno",
+        "mese"
+    ],
+    "pun0013": [
+        "anno",
+        "mese"
+    ],
+    "pun0014": [
+        "anno",
+        "mese"
+    ],
+    "pun0015": [
+        "dadata",
+        "adata"
+    ],
+    "ute0001": [
+        "dadata",
+        "adata"
+    ],
+    "ute0002": [
+        "dadata",
+        "adata",
+        "codiceCliente"
+    ],
+    "ute0003": [
+        "anno"
+    ],
+    "ute0004": [
+        "anno"
+    ],
+    "ute0005": [
+        "dadata",
+        "adata"
+    ],
+    "ute0006": [],
+    "ute0007": [
+        "dadata",
+        "adata",
+        "Articolo"
+    ],
+    "ute0008": [],
+    "ute0009": [],
+    "ute0010": [
+        "dadata",
+        "adata"
+    ],
+    "ute0011": [
+        "mese"
+    ],
+    "ute0012": [
+        "dadata",
+        "adata"
+    ],
+    "ute0013": [
+        "dadata",
+        "adata",
+        "codiceCliente"
+    ],
+    "ute0014": [
+        "dadata",
+        "adata"
+    ],
+    "ute0015": [
+        "codiceCliente"
+    ],
+    "ute0016": [
+        "agente"
+    ],
+    "ute0017": [
+        "dadata",
+        "adata"
+    ],
+    "ute0018": [
+        "dadata",
+        "adata"
+    ],
+    "ute0019": [
+        "dadata",
+        "adata"
+    ],
+    "fur0001": [
+        "dadata",
+        "adata"
+    ],
+    "fur0002": [
+        "dadata",
+        "adata"
+    ],
+    "fur0003": [
+        "agente"
+    ],
+    "dir0000.delete": [],
+    "dir0000.create": [],
+    "dir0000.update1": [],
+    "dir0000.update2": [],
+    "dir0000.update3": [],
+    "dir0000.reclassify": [],
+    "dir0000.correct": [],
+    "dir0001.01": [
+        "dadata",
+        "adata"
+    ],
+    "dir0001.02": [
+        "anno",
+        "mese"
+    ],
+    "dir0001.03": [
+        "anno",
+        "mese"
+    ],
+    "dir0001.04": [
+        "anno",
+        "mese"
+    ],
+    "dir0001.05": [
+        "anno",
+        "mese"
+    ],
+    "dir0001.06": [
+        "anno",
+        "mese"
+    ],
+    "dir0001.07": [
+        "anno",
+        "mese"
+    ],
+    "dir0001.08": [
+        "anno",
+        "mese"
+    ],
+    "dir0002.cellclick": [],
+    "dir0002.01": [],
+    "dir0003.02": [
+        "anno",
+        "mese"
+    ],
+    "dir0003.01": [],
+    "dir0004": [
+        "dadata",
+        "adata"
+    ],
+    "dir0005": [
+        "anno"
+    ],
+    "dir0007a": [],
+    "dir0007b": [
+        "dadata"
+    ],
+    "dir0007c": [
+        "adata"
+    ],
+    "dir0007.01": [
+        "dadata",
+        "adata"
+    ],
+    "dir0007.02": [
+        "dadata",
+        "adata"
+    ],
+    "dir0008.01": [
+        "codiceCliente"
+    ],
+    "com0001.01": [
+        "anno"
+    ],
+    "com0001.02": [
+        "anno"
+    ],
+    "com0001.03": [
+        "anno"
+    ],
+    "com0001.04": [
+        "anno"
+    ],
+    "com0001.05": [
+        "anno"
+    ],
+    "com0001.06": [
+        "anno"
+    ],
+    "com0001.07": [
+        "anno"
+    ],
+    "com0001.08": [
+        "anno"
+    ],
+    "com0001.09": [
+        "anno",
+        "mese"
+    ],
+    "com0001.10": [
+        "anno",
+        "mese"
+    ],
+    "com0001.11": [
+        "dadata",
+        "adata"
+    ],
+    "com0001.12": [
+        "dadata",
+        "adata"
+    ],
+    "com0001.13": [
+        "anno"
+    ],
+    "com0001.14": [
+        "dadata",
+        "adata"
+    ],
+    "com0001.15": [],
+    "com0001.16": [],
+    "com0001.17": [],
+    "com0001.18": [
+        "dadata",
+        "adata",
+        "codiceCliente"
+    ],
+    "com0001.19": [
+        "dadata",
+        "adata"
+    ],
+    "com0001.20": [
+        "anno"
+    ],
+    "com0002.01": [
+        "dadata",
+        "adata"
+    ],
+    "com0002.02": [
+        "dadata",
+        "adata"
+    ],
+    "com0002.03": [
+        "anno"
+    ],
+    "com0002.04": [
+        "dadata",
+        "adata",
+        "codiceCliente"
+    ],
+    "com0002.05": [
+        "dadata",
+        "adata",
+        "codiceCliente"
+    ],
+    "com0002.06": [
+        "dadata",
+        "adata"
+    ],
+    "com0002.07": [
+        "dadata",
+        "adata"
+    ],
+    "com0002.08": [
+        "dadata",
+        "adata"
+    ],
+    "com0002.09": [
+        "anno"
+    ],
+    "com0003.01": [
+        "dadata",
+        "adata"
+    ],
+    "com0004.01": [
+        "dadata",
+        "adata",
+        "agente"
+    ],
+    "com0004.02": [
+        "dadata",
+        "adata"
+    ],
+    "com0004.03": [],
+    "com0004.04": [
+        "dadata",
+        "adata"
+    ],
+    "com0004.05": [
+        "codiceCliente"
+    ],
+    "com0004.06": [],
+    "com0004.07": [],
+    "com0006.01": [
+        "anno"
+    ],
+    "com0006.02": [
+        "anno"
+    ],
+    "com0006.03": [
+        "anno"
+    ],
+    "com0006.04": [
+        "anno"
+    ],
+    "com0005.01": [
+        "dadata",
+        "adata"
+    ],
+    "com0005.02": [
+        "dadata",
+        "adata"
+    ],
+    "mag0001": [],
+    "mag0002": [
+        "dadata",
+        "adata"
+    ],
+    "mag0003": [],
+    "mag0004": [
+        "anno",
+        "mese"
+    ],
+    "mag0005": [
+        "anno"
+    ],
+    "mag0006": [],
+    "mag0007": [],
+    "mag0008": [
+        "dadata",
+        "adata"
+    ],
+    "mag0009": [
+        "dadata",
+        "adata"
+    ],
+    "mag0010": [
+        "dadata",
+        "adata"
+    ],
+    "mag0011": [
+        "dadata",
+        "adata"
+    ],
+    "mag0012": [
+        "dadata",
+        "adata"
+    ],
+    "mag0013": [
+        "anno"
+    ],
+    "web0001": [
+        "dadata",
+        "adata"
+    ],
+    "web0002": [],
+    "web0003": [],
+    "web0004": [
+        "dadata",
+        "adata"
+    ],
+    "web0005": [
+        "dadata",
+        "adata"
+    ],
+    "web0006": [
+        "dadata",
+        "adata"
+    ],
+    "web0007": [
+        "dadata",
+        "adata"
+    ],
+    "mar0001": [
+        "anno"
+    ],
+    "mar0002": [],
+    "mar0003": [],
+    "mar0004": [],
+    "mar0005": [
+        "anno"
+    ],
+    "mar0006": [],
+    "mar0007": [],
+    "age0001": [
+        "codiceCliente"
+    ],
+    "age0002": [],
+    "age0003": [
+        "anno",
+        "mese"
+    ],
+    "age0004": [
+        "dadata",
+        "adata"
+    ],
+    "age0005": [
+        "dadata",
+        "adata",
+        "codiceCliente"
+    ],
+    "age0006": [
+        "dadata",
+        "adata"
+    ],
+    "age0007": [
+        "dadata",
+        "adata"
+    ],
+    "all0001": [],
+    "all0002": [],
+    "all0003": [
+        "mese"
+    ],
+    "all0004": [],
+    "leg0001": [],
+    "leg0002": [],
+    "leg0003": [
+        "mese"
+    ],
+    "leg0004": [],
+    "pro0001": [],
+    "pro0002": [],
+    "pro0003": [
+        "dadata",
+        "adata"
+    ],
+    "pro0002xxx": [
+        "anno"
+    ],
+    "pro0004": [
+        "dadata",
+        "adata"
+    ],
+    "pro0005": [
+        "dadata",
+        "adata"
+    ],
+    "pro0006": [
+        "dadata",
+        "adata"
+    ],
+    "pro0007": [
+        "anno"
+    ],
+    "pro0008": [],
+    "pro0009": [],
+    "pro0010": [
+        "dadata",
+        "adata"
+    ],
+    "pro0011": [],
+    "pro0012": [
+        "dadata",
+        "adata"
+    ],
+    "pro0013": [
+        "dadata",
+        "adata"
+    ],
+    "pro0014": [
+        "dadata",
+        "adata",
+        "codiceCliente"
+    ],
+    "pro0015": [
+        "dadata",
+        "adata",
+        "codiceCliente"
+    ],
+    "pro0016": [
+        "dadata",
+        "adata",
+        "anno",
+        "codiceCliente"
+    ],
+    "pro0017": [
+        "dadata",
+        "adata"
+    ],
+    "pro0018": [
+        "dadata",
+        "adata",
+        "anno"
+    ],
+    "pro0019": [
+        "dadata",
+        "adata",
+        "codiceCliente"
+    ],
+    "pro0020": [
+        "dadata",
+        "adata"
+    ],
+    "pro0021": [
+        "dadata",
+        "adata"
+    ],
+    "pro0022": [
+        "dadata",
+        "adata"
+    ],
+    "pro0023": [
+        "dadata",
+        "adata"
+    ],
+    "pro0024": [
+        "dadata",
+        "adata"
+    ],
+    "pro0025": [
+        "dadata",
+        "adata"
+    ],
+    "pro0026": [
+        "mese"
+    ],
+    "pro0027": [],
+    "pro0028": [
+        "dadata",
+        "adata"
+    ],
+    "xpro0028": [
+        "dadata",
+        "adata"
+    ],
+    "pro0029": [
+        "dadata",
+        "adata"
+    ],
+    "acq0001": [
+        "anno"
+    ],
+    "acq0002": [],
+    "acq0003": [],
+    "acq0004.pre": [],
+    "acq0004": [],
+    "acq0005": [
+        "adata",
+        "codiceCliente"
+    ],
+    "acq0006": [
+        "dadata",
+        "adata",
+        "codiceCliente"
+    ],
+    "acq0007": [
+        "dadata",
+        "adata",
+        "codiceCliente"
+    ],
+    "acq0008": [],
+    "acq0009": [],
+    "acq0010": [],
+    "acq0011": [
+        "anno"
+    ],
+    "acq0012": [
+        "dadata",
+        "adata"
+    ],
+    "acq0013": [
+        "anno",
+        "codiceCliente"
+    ],
+    "acq0014": [
+        "anno",
+        "codiceCliente"
+    ],
+    "acq0015": [],
+    "acq0016": [],
+    "acq0017": [],
+    "amm0001": [
+        "anno",
+        "mese"
+    ],
+    "amm0002": [],
+    "amm0003": [
+        "adata"
+    ],
+    "amm0004": [],
+    "amm0005": [],
+    "amm0006": [],
+    "amm0007": [
+        "dadata",
+        "adata"
+    ],
+    "amm0008": [
+        "anno"
+    ],
+    "amm0009": [],
+    "amm0010": [],
+    "amm0011": [],
+    "amm0012": [
+        "dadata",
+        "adata"
+    ],
+    "amm0013": [
+        "dadata",
+        "adata"
+    ],
+    "amm0014": [
+        "dadata",
+        "adata"
+    ],
+    "amm0015": [
+        "dadata",
+        "adata"
+    ],
+    "amm0016": [
+        "dadata",
+        "adata"
+    ],
+    "amm0017": [
+        "dadata",
+        "adata"
+    ],
+    "amm0018": [
+        "dadata",
+        "adata"
+    ],
+    "amm0019": [
+        "dadata",
+        "adata"
+    ],
+    "amm0020": [],
+    "amm0021": [],
+    "amm0022": [
+        "dadata",
+        "adata"
+    ],
+    "amm0023": [
+        "dadata",
+        "adata"
+    ],
+    "amm0024": [],
+    "amm0025": [],
+    "amm0026": [
+        "iban"
+    ],
+    "amm0027": [
+        "codiceCliente"
+    ],
+    "amm0028": [
+        "dadata",
+        "adata"
+    ],
+    "amm0029": [
+        "anno",
+        "codiceCliente"
+    ],
+    "amm0030": [
+        "anno",
+        "mese"
+    ],
+    "amm0031": [],
+    "amm0032": [
+        "dadata",
+        "adata"
+    ],
+    "amm0201": [],
+    "amm0202": [],
+    "amm0203": [],
+    "ris0001": [
+        "anno",
+        "mese"
+    ],
+    "kpi0000.01": [
+        "dadata",
+        "adata"
+    ],
+    "kpi0000.02": [
+        "dadata",
+        "adata"
+    ],
+    "kpi0000.03": [
+        "dadata",
+        "adata"
+    ],
+    "kpi0000.04": [
+        "dadata",
+        "adata"
+    ],
+    "kpi0000.05": [],
+    "kpi0000.06": [
+        "dadata",
+        "adata"
+    ],
+    "kpi0000.07": [
+        "dadata",
+        "adata"
+    ],
+    "kpi0000.08": [
+        "anno"
+    ],
+    "kpi0000.09": [
+        "dadata",
+        "adata"
+    ],
+    "kpi0000.10": [
+        "dadata",
+        "adata"
+    ],
+    "kpi0000.11": [
+        "dadata",
+        "adata"
+    ],
+    "kpi0001.01": [
+        "dadata",
+        "adata"
+    ],
+    "kpi0001.02": [
+        "dadata",
+        "adata"
+    ],
+    "kpi0001.03": [
+        "dadata",
+        "adata"
+    ],
+    "kpi0001.04": [
+        "dadata",
+        "adata"
+    ],
+    "kpi0001.05": [
+        "dadata",
+        "adata"
+    ],
+    "kpi0001.06": [
+        "dadata",
+        "adata"
+    ],
+    "kpi0002.01": [
+        "dadata",
+        "adata"
+    ],
+    "kpi0002.02": [
+        "dadata",
+        "adata"
+    ],
+    "kpi0002.03": [
+        "dadata",
+        "adata"
+    ],
+    "kpi0003.01": [
+        "dadata",
+        "adata"
+    ],
+    "kpi0004.01": [
+        "dadata",
+        "adata"
+    ],
+    "kpi0004.02": [
+        "dadata",
+        "adata"
+    ]
+}

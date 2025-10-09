@@ -3,6 +3,7 @@ import {Sidebar} from "../components/sidebar";
 import FormFiltri from "../components/form-filtri";
 import { useState } from "react";
 import Dashboard from "../components/dashboard";
+import FormFiltri2 from "../components/form-filtri2";
 
 
 function MainPage() {
@@ -46,7 +47,7 @@ function MainPage() {
     {/* CONTENUTO PRINCIPALE */}
     <div className="flex-1 flex flex-col overflow-hidden">
   {/* Form filtri */}
-  <FormFiltri
+  <FormFiltri2
     showFilter={showFilter}
     sezione={sezioneAttiva}
     setTxt={setText}

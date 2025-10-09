@@ -38,6 +38,8 @@ function Header({ toggleSidebar }) {
         localStorage.removeItem('user-role');
         localStorage.removeItem('email');
         localStorage.removeItem('permissions');
+        localStorage.removeItem('name');
+        localStorage.setItem('isLoggedIn', false);
         navigate('/');
     }
 
@@ -47,7 +49,6 @@ function Header({ toggleSidebar }) {
     const handleSend = () => {
         console.log('Input 1:', input1);
         console.log('Input 2:', input2);
-        // qui puoi aggiungere la logica per inviare i dati
         closeSquarePlus();
     };
 
@@ -88,8 +89,7 @@ function Header({ toggleSidebar }) {
                                     className="w-4/5 px-3 py-2 rounded border border-black bg-white focus:outline-none"
                                 />
 
-                                {/* Combobox con ricerca integrata */}
-                                {/* Combobox con ricerca integrata */}
+
                                 <div className="w-1/5 relative">
                                     <input
                                         type="text"
@@ -99,19 +99,16 @@ function Header({ toggleSidebar }) {
                                             const value = e.target.value;
                                             setInput2(value);
 
-                                   
                                             const perms = JSON.parse(localStorage.getItem("permissions") || "[]");
+                                            const role = localStorage.getItem("user-role");
 
                                             try {
-                                                
                                                 const response = await fetch("/sidebar-datas.json");
                                                 const sidebarData = await response.json();
 
-                                               i
                                                 const getChildren = (items, parentId) => {
                                                     for (const item of items) {
                                                         if (item.id === parentId) {
-                                                            // Se il padre è trovato, restituisci tutti i suoi figli (ricorsivamente)
                                                             const collect = (nodes) => {
                                                                 let ids = [];
                                                                 nodes.forEach((n) => {
@@ -129,14 +126,29 @@ function Header({ toggleSidebar }) {
                                                     return [];
                                                 };
 
-                                                // Crea una lista di permessi con i figli inclusi
-                                                let expandedPerms = [...perms];
-                                                perms.forEach((p) => {
-                                                    const children = getChildren(sidebarData, p);
-                                                    expandedPerms = [...new Set([...expandedPerms, ...children])];
-                                                });
+                                                let expandedPerms = [];
 
-                                                // Filtra i codici che contengono la query
+                                                if (role === "admin") {
+
+                                                    const collectAll = (items) => {
+                                                        let ids = [];
+                                                        items.forEach((item) => {
+                                                            ids.push(item.id);
+                                                            if (item.children) ids = ids.concat(collectAll(item.children));
+                                                        });
+                                                        return ids;
+                                                    };
+                                                    expandedPerms = collectAll(sidebarData);
+                                                } else {
+
+                                                    expandedPerms = [...perms];
+                                                    perms.forEach((p) => {
+                                                        const children = getChildren(sidebarData, p);
+                                                        expandedPerms = [...new Set([...expandedPerms, ...children])];
+                                                    });
+                                                }
+
+
                                                 const filtered = expandedPerms.filter((p) =>
                                                     p.toLowerCase().includes(value.toLowerCase())
                                                 );
@@ -174,7 +186,7 @@ function Header({ toggleSidebar }) {
 
                             </div>
 
-                            {/* Pulsanti */}
+
                             <div className="flex justify-center space-x-4">
                                 <button
                                     className="bg-[rgb(255,186,0)] text-black px-4 py-2 rounded hover:bg-blue-600"
@@ -194,16 +206,14 @@ function Header({ toggleSidebar }) {
                 )}
 
 
-                {/* Dropdown User */}
                 {isDropdownOpen && (
                     <div className="absolute right-0 mt-40 w-40 bg-white shadow-lg rounded border border-gray-200 z-50">
-                        <button className="w-full text-left px-4 py-2 hover:bg-gray-100">Profilo</button>
+                        <button disabled className="w-full text-left px-4 py-2 hover:bg-gray-100">Ciao {localStorage.getItem("name").split(" ")[0]}</button>
                         <button className="w-full text-left px-4 py-2 hover:bg-gray-100">Impostazioni</button>
                         <button className="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-500" onClick={tornaLogin}>Logout</button>
                     </div>
                 )}
 
-                {/* Popup HELP */}
                 {isHelpOpen && (
                     <div className="fixed inset-0 flex items-start justify-center z-50 ">
                         <div className="bg-gray-400 bg-gray-300 p-6 rounded shadow-lg w-1/2 text-center relative mt-[3%]">

@@ -1,35 +1,69 @@
 import React, { useState } from "react";
 import { SendMail } from "../libs/clientclasses";
+import * as XLSX  from 'xlsx';
 
-export default function MailPopup({ visible, onClose, defaultEmail }) {
+export default function MailPopup({ visible, onClose, defaultEmail, tabellaDati }) {
   const [loading, setLoading] = useState(false);
   const messaggio = "Buongiorno, in allegato i dati relativi alle statistiche."
   const oggetto = "Statistiche Colfert ";
 
   if (!visible) return null;
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    const from = "noreply@colfert.com";
-    const to = e.target.destinatario.value;
-    const cc = e.target.cc.value;
-    const subject = e.target.subject.value;
-    const body = e.target.message.value;
+  const from = "noreply@colfert.com";
+  const to = e.target.destinatario.value;
+  const cc = e.target.cc.value;
+  const subject = e.target.subject.value;
+  const body = e.target.message.value;
 
-    setLoading(true);
-    try {
-      const result = await SendMail(from, to, cc, '', subject, body, "");
-      console.log("Risposta server:", result);
-      alert("Email inviata con successo!");
-      onClose(); // chiude il popup
-    } catch (error) {
-      console.error("Errore invio mail:", error);
-      alert("Errore durante l'invio della mail");
-    } finally {
-      setLoading(false);
-    }
-  };
+  setLoading(true);
+
+  try {
+    // 🔹 Genera il file Excel in memoria
+    const ws = XLSX.utils.json_to_sheet(tabellaDati); // tabellaDati passato come prop
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+    const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+
+    // 🔹 Converte in Base64
+    const arrayBufferToBase64 = (buffer) => {
+      let binary = "";
+      const bytes = new Uint8Array(buffer);
+      for (let i = 0; i < bytes.length; i++) {
+        binary += String.fromCharCode(bytes[i]);
+      }
+      return btoa(binary);
+    };
+
+    const excelBase64 = arrayBufferToBase64(excelBuffer);
+
+    // 🔹 Stringa singola formattata per SendMail
+    const attachmentString = `statistiche.xlsx;${excelBase64}`;
+
+    // 🔹 Invia
+    const result = await SendMail(
+      from,
+      to,
+      cc,
+      "",
+      subject,
+      body,
+      attachmentString // 🔹 qui NON va array, ma stringa
+    );
+
+    console.log("Risposta server:", result);
+    alert("Email inviata con successo!");
+    onClose(); // chiude il popup
+  } catch (error) {
+    console.error("Errore invio mail:", error);
+    alert("Errore durante l'invio della mail");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <div className="absolute inset-0 flex items-center justify-center z-50">

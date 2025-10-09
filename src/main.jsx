@@ -7,7 +7,7 @@ import './index.css'
 import './libs/libraries'
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  localStorage.setItem('isLoggedIn', false);
 
 
 
@@ -15,8 +15,8 @@ function App() {
     <StrictMode>
       <Router>
         <Routes>
-          <Route path="/" element={<LoginPage setIsLoggedIn={setIsLoggedIn} />} />
-          <Route path="/dashboard"  element={isLoggedIn ? <MainPage /> : <Navigate to="/" replace />} />
+          <Route path="/" element={<LoginPage/>} />
+          <Route path="/dashboard"  element={localStorage.getItem('isLoggedIn') ? <MainPage /> : <Navigate to="/" replace />} />
         </Routes>
       </Router>
     </StrictMode>

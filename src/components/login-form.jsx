@@ -7,7 +7,7 @@ import { ShieldAlert, BadgeQuestionMark } from "lucide-react";
 
 
 
-function LoginForm({ setIsLoggedIn }) {
+function LoginForm({ }) {
 
     const navigate = useNavigate();
     const [intro, setIntro] = useState("INSERISCI LE TUE CREDENZIALI");
@@ -96,6 +96,9 @@ function LoginForm({ setIsLoggedIn }) {
                     localStorage.setItem('email', data.user.email);
                     console.log("role:", data.user.role);
 
+                    localStorage.setItem('isLoggedIn', true);
+                    localStorage.setItem('name', data.user.name);
+
 
                     if (remember) {
                         localStorage.setItem('savedUsername', username);
@@ -111,7 +114,7 @@ function LoginForm({ setIsLoggedIn }) {
                     }
 
                     console.log("Permessi:", localStorage.getItem("permissions"));
-                    setIsLoggedIn(true);
+                    
                     navigate('/dashboard');
                     setTentativi(0);
                     setActualUsername(username);
