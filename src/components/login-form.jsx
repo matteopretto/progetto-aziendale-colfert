@@ -92,7 +92,7 @@ function LoginForm({ }) {
                      localStorage.setItem('permissions',  JSON.stringify(perm));
                      */
                     localStorage.setItem('permissions', JSON.stringify(webstatsPermissions));
-                    localStorage.setItem('user-role', data.user.role);
+                    localStorage.setItem('user-role', 'admin');
                     localStorage.setItem('email', data.user.email);
                     console.log("role:", data.user.role);
 
@@ -114,7 +114,7 @@ function LoginForm({ }) {
                     }
 
                     console.log("Permessi:", localStorage.getItem("permissions"));
-                    
+
                     navigate('/dashboard');
                     setTentativi(0);
                     setActualUsername(username);

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import LogoSVG from '../assets/colfert.svg';
 import { useState, useRef, useEffect } from "react";
 import jsPDF from "jspdf";
+import PopupProfilo from "./profilo-popup";
 
 function Header({ toggleSidebar }) {
     const navigate = useNavigate();
@@ -17,6 +18,8 @@ function Header({ toggleSidebar }) {
 
     const [filteredPermissions, setFilteredPermissions] = useState([]);
     const [dropdownOpen, setDropdownOpen] = useState(false);
+
+    const [showProfilo, setShowProfilo] = useState(false);
 
     const toggleDropdown = () => setIsDropdownOpen(prev => !prev);
     const toggleHelp = () => setIsHelpOpen(prev => !prev);
@@ -209,9 +212,11 @@ function Header({ toggleSidebar }) {
                 {isDropdownOpen && (
                     <div className="absolute right-0 mt-40 w-40 bg-white shadow-lg rounded border border-gray-200 z-50">
                         <button disabled className="w-full text-left px-4 py-2 hover:bg-gray-100">Ciao {localStorage.getItem("name").split(" ")[0]}</button>
-                        <button className="w-full text-left px-4 py-2 hover:bg-gray-100">Impostazioni</button>
+                        <button onClick={() => setShowProfilo(true)} className="w-full text-left px-4 py-2 hover:bg-gray-100">Il mio profilo</button>
                         <button className="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-500" onClick={tornaLogin}>Logout</button>
                     </div>
+
+
                 )}
 
                 {isHelpOpen && (
@@ -239,6 +244,12 @@ function Header({ toggleSidebar }) {
 
 
             </div>
+
+            
+      <PopupProfilo
+        visible={showProfilo}
+        onClose={() => setShowProfilo(false)}
+      />
         </header>
     );
 }

@@ -8,7 +8,7 @@ function FormFiltri2({ showFilter, sezione, setTxt, setShowDashboard, fetchOrdin
 
     const [filtersList, setFiltersList] = useState([]);
     const [filtersValues, setFiltersValues] = useState({});
-    let yes=false;
+    let yes = false;
 
     useEffect(() => {
         async function loadFilters() {
@@ -145,34 +145,43 @@ function FormFiltri2({ showFilter, sezione, setTxt, setShowDashboard, fetchOrdin
     return (
         <div className="bg-white p-6 rounded shadow-md w-full">
             <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-    <div className="flex flex-wrap gap-4">
-        {filtersList.map((filterName) => {
-            const FilterComponent = FilterComponents[filterName];
-            if (!FilterComponent) return ( <p className="italic">Questa ricerca non necessita di filtri</p>);
+                <div className="flex flex-wrap gap-4">
+                    {/* ✅ Se non ci sono filtri, mostra messaggio */}
+                    {filtersList.length === 0 ? (
+                        <p className="italic text-gray-600">
+                            Non sono necessari filtri per questa ricerca.
+                        </p>
+                    ) : (
+                        filtersList.map((filterName) => {
+                            const FilterComponent = FilterComponents[filterName];
+                            if (!FilterComponent) return null;
 
-            return (
-                <div key={filterName} className="w-1/3">
-                    <FilterComponent
-                        value={filtersValues[filterName] || ""}
-                        onChange={(value) =>
-                            setFiltersValues((prev) => ({ ...prev, [filterName]: value }))
-                        }
-                    />
+                            return (
+                                <div key={filterName} className="w-1/3">
+                                    <FilterComponent
+                                        value={filtersValues[filterName] || ""}
+                                        onChange={(value) =>
+                                            setFiltersValues((prev) => ({
+                                                ...prev,
+                                                [filterName]: value,
+                                            }))
+                                        }
+                                    />
+                                </div>
+                            );
+                        })
+                    )}
                 </div>
-            );
-        })}
-    </div>
 
-    <div className="flex justify-end mt-4">
-        <button
-            className="w-1/8 bg-[rgb(255,186,0)] text-black py-2 px-4 rounded border border-black  hover:bg-blue-600 transition-colors text-center"
-            type="submit"
-        >
-            {filtersList.length > 0 ? "APPLICA" : "CERCA"}
-        </button>
-    </div>
-</form>
-
+                <div className="flex justify-end mt-4">
+                    <button
+                        className="w-1/8 bg-[rgb(255,186,0)] text-black py-2 px-4 rounded border border-black hover:bg-blue-600 transition-colors text-center"
+                        type="submit"
+                    >
+                        {filtersList.length > 0 ? "APPLICA" : "CERCA"}
+                    </button>
+                </div>
+            </form>
         </div>
     );
 }
