@@ -10,20 +10,14 @@ function Header({ toggleSidebar }) {
 
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isHelpOpen, setIsHelpOpen] = useState(false);
-    const dropdownRef = useRef(null);
-
     const [isSquarePlusOpen, setIsSquarePlusOpen] = useState(false);
     const [input1, setInput1] = useState('');
     const [input2, setInput2] = useState('');
-
     const [filteredPermissions, setFilteredPermissions] = useState([]);
     const [dropdownOpen, setDropdownOpen] = useState(false);
-
     const [showProfilo, setShowProfilo] = useState(false);
 
-    const toggleDropdown = () => setIsDropdownOpen(prev => !prev);
-    const toggleHelp = () => setIsHelpOpen(prev => !prev);
-    const toggleSquarePlus = () => setIsSquarePlusOpen(prev => !prev);
+    const dropdownRef = useRef(null);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -35,24 +29,10 @@ function Header({ toggleSidebar }) {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
-    function tornaLogin() {
-        localStorage.removeItem('savedUsername');
-        localStorage.removeItem('savedPassword');
-        localStorage.removeItem('user-role');
-        localStorage.removeItem('email');
-        localStorage.removeItem('permissions');
-        localStorage.removeItem('name');
+    const tornaLogin = () => {
+        ["savedUsername", "savedPassword", "user-role", "email", "permissions", "name"].forEach(k => localStorage.removeItem(k));
         localStorage.setItem('isLoggedIn', false);
         navigate('/');
-    }
-
-    const closeHelp = () => setIsHelpOpen(false);
-    const closeSquarePlus = () => setIsSquarePlusOpen(false);
-
-    const handleSend = () => {
-        console.log('Input 1:', input1);
-        console.log('Input 2:', input2);
-        closeSquarePlus();
     };
 
     const downloadPDF = () => {
@@ -66,190 +46,122 @@ function Header({ toggleSidebar }) {
     };
 
     return (
-        <header className="shadow py-4 px-4 flex items-center justify-between" style={{ backgroundColor: "rgb(255,186,0)" }}>
-            <button className="cursor-pointer" onClick={toggleSidebar}>
+        <header
+            className="shadow-md py-3 px-4 flex items-center justify-between transition-all duration-200"
+            style={{ backgroundColor: "rgb(255,186,0)" }}
+        >
+            {/* Pulsante Sidebar */}
+            <button
+                className="cursor-pointer p-2 rounded-full hover:bg-yellow-400 transition-colors"
+                onClick={toggleSidebar}
+            >
                 <Menu className="w-6 h-6 text-gray-800" />
             </button>
 
-            <div className="flex items-center space-x-2 relative" ref={dropdownRef}>
-                <SquarePlus className="w-8 h-8 text-gray-800 cursor-pointer" onClick={toggleSquarePlus} />
-                <BadgeQuestionMark className="w-8 h-8 text-gray-800 cursor-pointer" onClick={toggleHelp} />
-                <User className="w-8 h-8 text-gray-800 cursor-pointer" onClick={toggleDropdown} />
-                <img src={LogoSVG} alt="Colfert Logo" className="w-12 h-12" />
+            {/* Icone + Logo */}
+            <div className="flex items-center space-x-3 relative" ref={dropdownRef}>
+                <SquarePlus
+                    className="w-7 h-7 text-gray-800 cursor-pointer hover:text-gray-600 transition"
+                    onClick={() => setIsSquarePlusOpen(prev => !prev)}
+                />
+                <BadgeQuestionMark
+                    className="w-7 h-7 text-gray-800 cursor-pointer hover:text-gray-600 transition"
+                    onClick={() => setIsHelpOpen(prev => !prev)}
+                />
+                <User
+                    className="w-7 h-7 text-gray-800 cursor-pointer hover:text-gray-600 transition"
+                    onClick={() => setIsDropdownOpen(prev => !prev)}
+                />
+                <img src={LogoSVG} alt="Colfert Logo" className="w-12 h-12 ml-2" />
 
+                {/* Dropdown Profilo */}
+                {isDropdownOpen && (
+                    <div className="absolute right-0 mt-44 w-44 bg-white shadow-xl rounded-xl border border-gray-200 z-50 overflow-hidden animate-fadeIn">
+                        <button disabled className="w-full text-left px-4 py-2 text-gray-600 bg-gray-100 font-medium">
+                            👋 Ciao {localStorage.getItem("name")?.split(" ")[0] || ""}
+                        </button>
+                        <button onClick={() => setShowProfilo(true)} className="w-full text-left px-4 py-2 hover:bg-gray-50">
+                            Il mio profilo
+                        </button>
+                        <button className="w-full text-left px-4 py-2 hover:bg-gray-50 text-red-600 font-semibold" onClick={tornaLogin}>
+                            Logout
+                        </button>
+                    </div>
+                )}
+
+                {/* Popup HELP */}
+                {isHelpOpen && (
+                    <div className="fixed top-[20%]  left-1/2 -translate-x-1/2 z-50">
+                        <div className="bg-gray-300 p-8 rounded-2xl shadow-2xl w-[500px] text-center animate-scaleIn">
+                            <h3 className="text-xl font-bold mb-3 text-gray-800">HELP</h3>
+                            <p className="text-gray-700 mb-6">
+                                Scarica il manuale utente contenente tutte le informazioni relative all'utilizzo del sito.
+                            </p>
+                            <div className="flex justify-center space-x-4">
+                                <button
+                                    className="bg-yellow-400 text-black font-semibold px-5 py-2 rounded-lg hover:bg-yellow-500 transition"
+                                    onClick={() => setIsHelpOpen(false)}
+                                >
+                                    Chiudi
+                                </button>
+                                <button
+                                    className="bg-yellow-400 text-black font-semibold px-5 py-2 rounded-lg hover:bg-yellow-500 transition"
+                                    onClick={downloadPDF}
+                                >
+                                    Scarica PDF
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {/* Popup Aggiungi Permesso */}
                 {isSquarePlusOpen && (
-                    <div className="fixed inset-0 flex items-start justify-center z-50">
-                        <div className="bg-gray-400 p-6 rounded shadow-lg w-1/2 text-center relative mt-[3%]">
-                            <h3 className="text-lg font-bold underline mb-4">AGGIUNGI NUOVO PERMESSO</h3>
-                            <div className="flex gap-2 mb-4">
-                                {/* Primo input */}
+                    <div className="fixed top-[15%] left-1/2 -translate-x-1/2 z-50">
+                        <div className="bg-gray-300 p-8 rounded-2xl shadow-2xl w-[600px] text-center animate-scaleIn">
+                            <h3 className="text-lg font-bold underline mb-4 text-gray-800">
+                                Aggiungi nuovo permesso
+                            </h3>
+                            <div className="flex gap-3 mb-6">
                                 <input
                                     type="text"
                                     placeholder="nome.cognome@colfert.com"
                                     value={input1}
                                     onChange={(e) => setInput1(e.target.value)}
-                                    onFocus={() => setDropdownOpen(false)} // Chiude dropdown se focus su input1
-                                    className="w-4/5 px-3 py-2 rounded border border-black bg-white focus:outline-none"
+                                    className="w-3/4 px-3 py-2 rounded-lg border border-gray-400 focus:ring-2 focus:ring-yellow-400 outline-none"
                                 />
-
-
-                                <div className="w-1/5 relative">
-                                    <input
-                                        type="text"
-                                        placeholder="codice query..."
-                                        value={input2}
-                                        onChange={async (e) => {
-                                            const value = e.target.value;
-                                            setInput2(value);
-
-                                            const perms = JSON.parse(localStorage.getItem("permissions") || "[]");
-                                            const role = localStorage.getItem("user-role");
-
-                                            try {
-                                                const response = await fetch("/sidebar-datas.json");
-                                                const sidebarData = await response.json();
-
-                                                const getChildren = (items, parentId) => {
-                                                    for (const item of items) {
-                                                        if (item.id === parentId) {
-                                                            const collect = (nodes) => {
-                                                                let ids = [];
-                                                                nodes.forEach((n) => {
-                                                                    ids.push(n.id);
-                                                                    if (n.children) ids = ids.concat(collect(n.children));
-                                                                });
-                                                                return ids;
-                                                            };
-                                                            return item.children ? collect(item.children) : [];
-                                                        } else if (item.children) {
-                                                            const found = getChildren(item.children, parentId);
-                                                            if (found.length > 0) return found;
-                                                        }
-                                                    }
-                                                    return [];
-                                                };
-
-                                                let expandedPerms = [];
-
-                                                if (role === "admin") {
-
-                                                    const collectAll = (items) => {
-                                                        let ids = [];
-                                                        items.forEach((item) => {
-                                                            ids.push(item.id);
-                                                            if (item.children) ids = ids.concat(collectAll(item.children));
-                                                        });
-                                                        return ids;
-                                                    };
-                                                    expandedPerms = collectAll(sidebarData);
-                                                } else {
-
-                                                    expandedPerms = [...perms];
-                                                    perms.forEach((p) => {
-                                                        const children = getChildren(sidebarData, p);
-                                                        expandedPerms = [...new Set([...expandedPerms, ...children])];
-                                                    });
-                                                }
-
-
-                                                const filtered = expandedPerms.filter((p) =>
-                                                    p.toLowerCase().includes(value.toLowerCase())
-                                                );
-
-                                                setFilteredPermissions(filtered);
-                                                setDropdownOpen(true);
-                                            } catch (err) {
-                                                console.error("Errore caricamento sidebar:", err);
-                                                setFilteredPermissions([]);
-                                            }
-                                        }}
-                                        onFocus={() => {
-                                            if (input2) setDropdownOpen(true);
-                                        }}
-                                        className="w-full px-3 py-2 rounded border border-black bg-white focus:outline-none"
-                                    />
-
-                                    {dropdownOpen && filteredPermissions.length > 0 && (
-                                        <ul className="absolute z-50 w-full max-h-24 overflow-y-auto bg-white border border-black rounded mt-1 text-left">
-                                            {filteredPermissions.map((perm, idx) => (
-                                                <li
-                                                    key={idx}
-                                                    className="px-2 py-1 hover:bg-gray-200 cursor-pointer"
-                                                    onClick={() => {
-                                                        setInput2(perm);
-                                                        setDropdownOpen(false);
-                                                    }}
-                                                >
-                                                    {perm}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    )}
-                                </div>
-
+                                <input
+                                    type="text"
+                                    placeholder="codice query..."
+                                    value={input2}
+                                    onChange={(e) => setInput2(e.target.value)}
+                                    className="w-1/4 px-3 py-2 rounded-lg border border-gray-400 focus:ring-2 focus:ring-yellow-400 outline-none"
+                                />
                             </div>
-
-
                             <div className="flex justify-center space-x-4">
                                 <button
-                                    className="bg-[rgb(255,186,0)] text-black px-4 py-2 rounded hover:bg-blue-600"
-                                    onClick={closeSquarePlus}
+                                    className="bg-yellow-400 text-black font-semibold px-5 py-2 rounded-lg hover:bg-yellow-500 transition"
+                                    onClick={() => setIsSquarePlusOpen(false)}
                                 >
-                                    CHIUDI
+                                    Chiudi
                                 </button>
                                 <button
-                                    className="bg-[rgb(255,186,0)] text-black px-4 py-2 rounded hover:bg-blue-600"
-                                    onClick={() => handleSend(input1, input2)}
+                                    className="bg-yellow-400 text-black font-semibold px-5 py-2 rounded-lg hover:bg-yellow-500 transition"
+                                    onClick={() => {
+                                        console.log('Input1:', input1, 'Input2:', input2);
+                                        setIsSquarePlusOpen(false);
+                                    }}
                                 >
-                                    AGGIUNGI
+                                    Aggiungi
                                 </button>
                             </div>
                         </div>
                     </div>
                 )}
-
-
-                {isDropdownOpen && (
-                    <div className="absolute right-0 mt-40 w-40 bg-white shadow-lg rounded border border-gray-200 z-50">
-                        <button disabled className="w-full text-left px-4 py-2 hover:bg-gray-100">Ciao {localStorage.getItem("name").split(" ")[0]}</button>
-                        <button onClick={() => setShowProfilo(true)} className="w-full text-left px-4 py-2 hover:bg-gray-100">Il mio profilo</button>
-                        <button className="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-500" onClick={tornaLogin}>Logout</button>
-                    </div>
-
-
-                )}
-
-                {isHelpOpen && (
-                    <div className="fixed inset-0 flex items-start justify-center z-50 ">
-                        <div className="bg-gray-400 bg-gray-300 p-6 rounded shadow-lg w-1/2 text-center relative mt-[3%]">
-                            <h3 className="text-lg font-bold mb-2">HELP</h3>
-                            <p>Scarica il manuale utente contenente tutte le informazioni relative all'utilizzo del sito web.</p>
-                            <div className="flex justify-center space-x-4 mt-4">
-                                <button
-                                    className="bg-[rgb(255,186,0)] text-black px-4 py-2 rounded hover:bg-blue-600"
-                                    onClick={closeHelp}
-                                >
-                                    CHIUDI
-                                </button>
-                                <button
-                                    className="bg-[rgb(255,186,0)] text-black px-4 py-2 rounded hover:bg-blue-600"
-                                    onClick={downloadPDF}
-                                >
-                                    SCARICA
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                )}
-
-
             </div>
 
-            
-      <PopupProfilo
-        visible={showProfilo}
-        onClose={() => setShowProfilo(false)}
-      />
+            {/* Popup Profilo */}
+            <PopupProfilo visible={showProfilo} onClose={() => setShowProfilo(false)} />
         </header>
     );
 }

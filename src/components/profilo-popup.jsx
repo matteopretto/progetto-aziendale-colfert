@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 export default function PopupProfilo({ visible, onClose }) {
-    // 🔹 Hooks sempre chiamati all'inizio
     const [permissionsData, setPermissionsData] = useState([]);
     const [selectedPermission, setSelectedPermission] = useState("");
 
@@ -10,7 +9,6 @@ export default function PopupProfilo({ visible, onClose }) {
     const ruolo = localStorage.getItem("user-role") || "";
     const userPermissions = JSON.parse(localStorage.getItem("permissions") || "[]");
 
-    // 🔹 Funzione ricorsiva per appiattire permessi
     const flattenPermissions = (nodes) => {
         let result = [];
         nodes.forEach(node => {
@@ -28,7 +26,6 @@ export default function PopupProfilo({ visible, onClose }) {
                 const flat = flattenPermissions(json);
                 setPermissionsData(flat);
 
-                // Imposta permesso iniziale
                 if (userPermissions.length > 0) {
                     const found = flat.find(p => p.id === userPermissions[0]);
                     setSelectedPermission(found ? found.id : flat[0].id);
@@ -40,12 +37,11 @@ export default function PopupProfilo({ visible, onClose }) {
         fetchPermissions();
     }, []);
 
-    // 🔹 Se il popup non è visibile, non renderizzare nulla
     if (!visible) return null;
 
     return (
-        <div className="absolute inset-0 flex items-center justify-center z-50">
-            <div className="bg-gray-400 p-6 rounded shadow-lg w-2/5 max-w-3xl relative text-center">
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+            <div className="bg-gray-300 p-8 rounded-2xl shadow-2xl w-2/5 max-w-3xl relative text-center animate-scaleIn">
                 <h2 className="text-xl font-bold mb-4">IL MIO PROFILO</h2>
 
                 <div className="flex flex-col items-stretch gap-4">
@@ -83,7 +79,7 @@ export default function PopupProfilo({ visible, onClose }) {
                     <div className="flex justify-center mt-4">
                         <button
                             onClick={onClose}
-                            className="bg-[rgb(255,186,0)] px-4 py-2 text-black rounded hover:bg-blue-600"
+                            className="bg-[rgb(255,186,0)] px-4 py-2 text-black rounded-lg hover:bg-blue-600 transition"
                         >
                             CHIUDI
                         </button>

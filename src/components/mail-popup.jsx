@@ -50,7 +50,7 @@ export default function MailPopup({ visible, onClose, defaultEmail, tabellaDati 
       "",
       subject,
       body,
-      attachmentString // 🔹 qui NON va array, ma stringa
+      attachmentString 
     );
 
     console.log("Risposta server:", result);
