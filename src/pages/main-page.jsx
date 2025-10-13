@@ -5,24 +5,26 @@ import Dashboard from "../components/dashboard";
 import FormFiltri2 from "../components/form-filtri2";
 
 function MainPage() {
-  const [sezioneAttiva, setSezioneAttiva] = useState("ordini");
+  const [sezioneAttiva, setSezioneAttiva] = useState("");
   const [text, setText] = useState("NON HAI SELEZIONATO NULLA PER ORA");
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [showDashboard, setShowDashboard] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
 
   const [ordini, setOrdini] = useState([]);
+  const [filtri, setFiltri] = useState({});
 
-  // Altezza del pannello regolabile
-  const [panelHeight, setPanelHeight] = useState(240);
 
-  // Riferimenti per drag
+
+  const [panelHeight, setPanelHeight] = useState(220);
+
+
   const panelRef = useRef(null);
   const dragging = useRef(false);
   const startY = useRef(0);
   const startHeight = useRef(0);
 
-  // Limiti
+
   const MIN_HEIGHT = 50;
   const MAX_HEIGHT = 200;
 
@@ -63,6 +65,7 @@ function MainPage() {
       let newH = startHeight.current + delta;
       newH = Math.max(MIN_HEIGHT, Math.min(MAX_HEIGHT, newH));
       setPanelHeight(newH);
+
     };
 
     const onMouseMove = (e) => onMove(e.clientY);
@@ -90,6 +93,7 @@ function MainPage() {
     <div className="flex flex-col h-screen bg-gray-100">
       {/* HEADER */}
       <Header toggleSidebar={toggleSidebar} />
+
 
       {/* MAIN */}
       <div className="flex flex-1 overflow-hidden">
@@ -128,6 +132,7 @@ function MainPage() {
                 setTxt={setText}
                 setShowDashboard={setShowDashboard}
                 fetchOrdini={fetchOrdini}
+                onApplyFilters={setFiltri}
               />
             </div>
 
@@ -149,7 +154,7 @@ function MainPage() {
           {/* DASHBOARD */}
           <div className="flex-1 overflow-x-auto bg-white rounded shadow p-6 min-w-[800px]">
             {showDashboard && (
-              <Dashboard isVisible={showDashboard} ordini={ordini} />
+              <Dashboard isVisible={showDashboard} sezioneAttiva={sezioneAttiva} setSezioneAttiva={setSezioneAttiva} filtri={filtri} />
             )}
           </div>
         </div>

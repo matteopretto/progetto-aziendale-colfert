@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import FilterComponents from "./filters/index-filters";
 
-function FormFiltri2({ showFilter, sezione, setTxt, setShowDashboard, fetchOrdini }) {
+function FormFiltri2({ showFilter, sezione, setTxt, setShowDashboard, fetchOrdini, onApplyFilters }) {
     const today = new Date();
     const dataInizioDefault = `${today.getFullYear()}-01-01`;
     const dataFineDefault = today.toISOString().split("T")[0];
@@ -39,9 +39,11 @@ function FormFiltri2({ showFilter, sezione, setTxt, setShowDashboard, fetchOrdin
         setTxt("Hai selezionato i seguenti filtri: " + JSON.stringify(filtersValues));
         setShowDashboard(true);
 
-        if (fetchOrdini) {
+        if (onApplyFilters) onApplyFilters(filtersValues);
+
+       /* if (fetchOrdini) {
             await fetchOrdini(filtersValues);
-        }
+        } */
     };
 
     // 🔸 Dispatcher che disegna dinamicamente ogni filtro
@@ -146,7 +148,7 @@ function FormFiltri2({ showFilter, sezione, setTxt, setShowDashboard, fetchOrdin
         <div className="bg-white p-6 rounded shadow-md w-full">
             <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
                 <div className="flex flex-wrap gap-4">
-                    {/* ✅ Se non ci sono filtri, mostra messaggio */}
+                    
                     {filtersList.length === 0 ? (
                         <p className="italic text-gray-600">
                             Non sono necessari filtri per questa ricerca.

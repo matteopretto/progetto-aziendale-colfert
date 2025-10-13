@@ -1,117 +1,147 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import MailPopup from './mail-popup';
 import DynamicTable from './dynamic-table';
 
+function Dashboard({ isVisible, sezioneAttiva, setSezioneAttiva, filtri }) {
+  const [showPopupMail, setShowPopupMail] = useState(false);
+  const [tabellaDati, setTabellaDati] = useState([]);
+  const [query, setQuery] = useState("");
+  const [searchTerm, setSearchTerm] = useState(""); // 🔹 stato ricerca
 
+  const showPopUpMail = () => setShowPopupMail(!showPopupMail);
+  const closePopUpMail = () => setShowPopupMail(false);
 
-function Dashboard({ isVisible, ordini }) {
-    const [showPopupMail, setShowPopupMail] = useState(false);
-    const [tabellaDati, setTabellaDati] = useState([]);
-    const showPopUpMail = () => setShowPopupMail(!showPopupMail);
-    const closePopUpMail = () => setShowPopupMail(false);
-    const exportToExcel = () => {
-        if (!tabellaDati || tabellaDati.length === 0) return;
+  const placeholderMap = {
+    dadata: "fromdate",
+    adata: "todate",
+  };
 
-        const ws = XLSX.utils.json_to_sheet(tabellaDati);
+  const buildQueryWithFilters = (queryTemplate, filtri) => {
+    if (!queryTemplate) return "";
+    let queryFinale = queryTemplate;
 
-        // 🔹 larghezza colonne
-        ws['!cols'] = Object.keys(tabellaDati[0]).map((col) => {
-            const maxLength = Math.max(
-                col.length,
-                ...tabellaDati.map((row) => (row[col] ? row[col].toString().length : 0))
-            );
-            return { wch: maxLength + 5 }; // un po' di padding
-        });
+    Object.entries(filtri || {}).forEach(([key, value]) => {
+      const placeholder = `<${placeholderMap[key] || key}>`;
+      if (value !== undefined && value !== null) {
+        queryFinale = queryFinale.replaceAll(placeholder, value);
+      }
+    });
 
-        const range = XLSX.utils.decode_range(ws['!ref']);
+    return queryFinale;
+  };
 
-        // 🔹 stile header
-        for (let C = range.s.c; C <= range.e.c; ++C) {
-            const cellAddress = XLSX.utils.encode_cell({ r: 0, c: C });
-            if (!ws[cellAddress]) continue;
-            ws[cellAddress].s = {
-                fill: { fgColor: { rgb: "FFFF99" } }, // giallo
-                font: { bold: true },
-                alignment: { horizontal: "center", vertical: "center" }
-            };
+  useEffect(() => {
+    if (!sezioneAttiva) return;
+
+    const loadQuery = async () => {
+      try {
+        const response = await fetch('/id-queries.json');
+        const data = await response.json();
+        const selectedQuery = data[sezioneAttiva];
+
+        if (selectedQuery) {
+          const queryConFiltri = buildQueryWithFilters(selectedQuery, filtri);
+          setQuery(queryConFiltri);
+        } else {
+          setQuery("");
         }
-
-        // 🔹 righe alternate
-        for (let R = 1; R <= range.e.r; ++R) {
-            const bgColor = R % 2 === 0 ? "FFFFFF" : "F2F2F2"; // bianco / grigio chiaro
-            for (let C = range.s.c; C <= range.e.c; ++C) {
-                const cellAddress = XLSX.utils.encode_cell({ r: R, c: C });
-                if (!ws[cellAddress]) continue;
-                // Manteniamo eventuali stili già presenti (header)
-                ws[cellAddress].s = ws[cellAddress].s || {};
-                ws[cellAddress].s.fill = { fgColor: { rgb: bgColor } };
-            }
-        }
-
-        const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-
-        const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array', cellStyles: true });
-        const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
-        saveAs(blob, `export-statistics.xlsx`);
+      } catch (error) {
+        console.error("Errore nel caricamento di id-queries.json:", error);
+      }
     };
 
+    loadQuery();
+  }, [sezioneAttiva, filtri]);
 
+  // 🔹 Filtra i risultati già caricati
+  const filteredData = tabellaDati.filter((row) =>
+    Object.values(row).some(
+      (value) =>
+        value &&
+        value.toString().toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  );
 
-    const query = `select distinct top 1000 d.CodiceCliente, d.RagioneSociale, d.Indirizzo, d.Localita, d.Cap, d.Provincia, d.CodiceAgente + ' - ' + d.NomeAgente as Agente,
-        (select isnull(sum(a.totriga),0) from stats..consegnato a where a.anno = year(getdate())-3 and d.CodiceCliente = a.CodiceCliente and a.CodiceFornitore = d.CodiceFornitore) as ConsegnatoTreAnnifa,
-        (select isnull(sum(a.totriga),0) from stats..consegnato a where a.anno = year(getdate())-2 and d.CodiceCliente = a.CodiceCliente and a.CodiceFornitore = d.CodiceFornitore) as ConsegnatoDueAnnifa,
-        (select isnull(sum(a.totriga),0) from stats..consegnato a where a.anno = year(getdate())-1 and d.CodiceCliente = a.CodiceCliente and a.CodiceFornitore = d.CodiceFornitore) as ConsegnatoUnAnnofa,
-        (select isnull(sum(a.totriga),0) from stats..consegnato a where a.anno = year(getdate()) and d.CodiceCliente = a.CodiceCliente and a.CodiceFornitore = d.CodiceFornitore) as ConsegnatoAnnoCorrente
-    from stats..consegnato d
-    where d.anno >= year(getdate())-3
-    group by d.CodiceCliente, d.RagioneSociale, d.CodiceAgente + ' - ' + d.NomeAgente, d.Indirizzo, d.Localita, d.Cap, d.Provincia, d.CodiceFornitore
-    order by 1`;
+  const exportToExcel = () => {
+    // 🔹 usa filteredData per l'export, niente export se ricerca non trova risultati
+    if (!filteredData || filteredData.length === 0) return;
 
-    return isVisible ? (
-        <div className="flex flex-col">
-            <MailPopup
-                visible={showPopupMail}
-                onClose={closePopUpMail}
-                defaultEmail={localStorage.getItem("email")}
-                tabellaDati={tabellaDati}
-            />
+    const ws = XLSX.utils.json_to_sheet(filteredData);
+    ws['!cols'] = Object.keys(filteredData[0]).map((col) => {
+      const maxLength = Math.max(
+        col.length,
+        ...filteredData.map((row) => (row[col] ? row[col].toString().length : 0))
+      );
+      return { wch: maxLength + 5 };
+    });
 
-            {/* Pulsanti sempre visibili */}
-          {/* Pulsanti + totale risultati */}
-<div className="flex justify-between mt-4 items-center">
-  {/* Pulsanti a sinistra */}
-  <div className="flex space-x-3">
-    <button
-      onClick={exportToExcel}
-      className="bg-[rgb(255,186,0)] text-black px-4 py-2 rounded border border-black hover:bg-blue-600 transition-colors"
-    >
-      Esporta in Excel
-    </button>
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
 
-    <button
-      onClick={showPopUpMail}
-      className="bg-[rgb(255,186,0)] text-black px-4 py-2 rounded border border-black hover:bg-blue-600 transition-colors"
-    >
-      Invia
-    </button>
-  </div>
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    const filename = `export-statistics-${yyyy}_${mm}_${dd}.xlsx`;
 
-  {/* Totale risultati a destra */}
-  <div className="text-gray-700 font-medium">
-    Totale risultati: <span className="text-black font-bold">{tabellaDati.length}</span>
-  </div>
-</div>
+    saveAs(blob, filename);
+  };
 
-            <div>
-                <DynamicTable query={query} onDataLoad={setTabellaDati} /> {/* 🔹 passa setTabellaDati */}
-            </div>
+  return isVisible ? (
+    <div className="flex flex-col">
+      <MailPopup
+        visible={showPopupMail}
+        onClose={closePopUpMail}
+        defaultEmail={localStorage.getItem("email")}
+        tabellaDati={filteredData}
+      />
+
+      {/* 🔹 Pulsanti, ricerca e totale risultati */}
+      <div className="flex justify-between mt-4 items-center">
+        <div className="flex space-x-3 items-center">
+          <button
+            onClick={exportToExcel}
+            className="bg-[rgb(255,186,0)] text-black px-4 py-2 rounded border border-black hover:bg-blue-600 transition-colors"
+          >
+            Esporta in Excel
+          </button>
+
+          <button
+            onClick={showPopUpMail}
+            className="bg-[rgb(255,186,0)] mr-8 text-black px-4 py-2 rounded border border-black hover:bg-blue-600 transition-colors"
+          >
+            Invia
+          </button>
+
+          <input
+            type="text"
+            placeholder="Cerca..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="border border-gray-400 rounded px-3 py-2 text-sm w-64 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+          />
         </div>
-    ) : (
-        <p>Setta i filtri e vedrai i risultati</p>
-    );
+
+        <div className="text-gray-700 font-medium">
+          Totale risultati: <span className="text-black font-bold">{filteredData.length}</span>
+        </div>
+      </div>
+
+      <div>
+        {query ? (
+          <DynamicTable query={query} onDataLoad={setTabellaDati} filteredData={filteredData} />
+        ) : (
+          <p className="text-gray-500 mt-4">Seleziona una sezione per visualizzare i dati</p>
+        )}
+      </div>
+    </div>
+  ) : (
+    <p>Setta i filtri e vedrai i risultati</p>
+  );
 }
 
 export default Dashboard;

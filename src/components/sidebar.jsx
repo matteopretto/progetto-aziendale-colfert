@@ -71,6 +71,7 @@ export const Sidebar = ({
         setSezioneAttiva(sezione);
         setShowDashboard(false);
         setShowFilter(true);
+    
     };
 
     const toggleAll = () => {
