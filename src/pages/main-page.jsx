@@ -24,7 +24,7 @@ function MainPage() {
 
   // Limiti
   const MIN_HEIGHT = 50;
-  const MAX_HEIGHT = 200;
+  const MAX_HEIGHT = 220;
 
   const fetchOrdini = async (filters) => {
     try {
@@ -41,7 +41,7 @@ function MainPage() {
 
   const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
 
-  // --- DRAG ---
+
   const startDrag = (clientY) => {
     dragging.current = true;
     startY.current = clientY;
@@ -120,8 +120,8 @@ function MainPage() {
             }}
             className="relative bg-white shadow-md border-b border-gray-300 overflow-hidden"
           >
-            {/* Contenuto filtri */}
-            <div className="p-4 h-[calc(100%-1.25rem)] overflow-y-auto">
+          
+            <div className="p-4 h-[calc(80%-1.25rem)] overflow-y-auto">
               <FormFiltri2
                 showFilter={showFilter}
                 sezione={sezioneAttiva}
@@ -131,7 +131,7 @@ function MainPage() {
               />
             </div>
 
-            {/* HANDLE minimal */}
+           
             <div
               onMouseDown={handleMouseDown}
               onTouchStart={handleTouchStart}

@@ -5,7 +5,6 @@ import MailPopup from './mail-popup';
 import DynamicTable from './dynamic-table';
 
 
-
 function Dashboard({ isVisible, ordini }) {
     const [showPopupMail, setShowPopupMail] = useState(false);
     const [tabellaDati, setTabellaDati] = useState([]);
@@ -16,35 +15,33 @@ function Dashboard({ isVisible, ordini }) {
 
         const ws = XLSX.utils.json_to_sheet(tabellaDati);
 
-        // 🔹 larghezza colonne
+       
         ws['!cols'] = Object.keys(tabellaDati[0]).map((col) => {
             const maxLength = Math.max(
                 col.length,
                 ...tabellaDati.map((row) => (row[col] ? row[col].toString().length : 0))
             );
-            return { wch: maxLength + 5 }; // un po' di padding
+            return { wch: maxLength + 1 };
         });
 
         const range = XLSX.utils.decode_range(ws['!ref']);
 
-        // 🔹 stile header
+ 
         for (let C = range.s.c; C <= range.e.c; ++C) {
             const cellAddress = XLSX.utils.encode_cell({ r: 0, c: C });
             if (!ws[cellAddress]) continue;
             ws[cellAddress].s = {
-                fill: { fgColor: { rgb: "FFFF99" } }, // giallo
+                fill: { fgColor: { rgb: "FFFF99" } },
                 font: { bold: true },
                 alignment: { horizontal: "center", vertical: "center" }
             };
         }
 
-        // 🔹 righe alternate
         for (let R = 1; R <= range.e.r; ++R) {
-            const bgColor = R % 2 === 0 ? "FFFFFF" : "F2F2F2"; // bianco / grigio chiaro
+            const bgColor = R % 2 === 0 ? "FFFFFF" : "F2F2F2"; 
             for (let C = range.s.c; C <= range.e.c; ++C) {
                 const cellAddress = XLSX.utils.encode_cell({ r: R, c: C });
                 if (!ws[cellAddress]) continue;
-                // Manteniamo eventuali stili già presenti (header)
                 ws[cellAddress].s = ws[cellAddress].s || {};
                 ws[cellAddress].s.fill = { fgColor: { rgb: bgColor } };
             }
@@ -60,7 +57,7 @@ function Dashboard({ isVisible, ordini }) {
 
 
 
-    const query = `select distinct top 1000 d.CodiceCliente, d.RagioneSociale, d.Indirizzo, d.Localita, d.Cap, d.Provincia, d.CodiceAgente + ' - ' + d.NomeAgente as Agente,
+    const query = `select top 1000 d.CodiceCliente, d.RagioneSociale, d.Indirizzo, d.Localita, d.Cap, d.Provincia, d.CodiceAgente + ' - ' + d.NomeAgente as Agente,
         (select isnull(sum(a.totriga),0) from stats..consegnato a where a.anno = year(getdate())-3 and d.CodiceCliente = a.CodiceCliente and a.CodiceFornitore = d.CodiceFornitore) as ConsegnatoTreAnnifa,
         (select isnull(sum(a.totriga),0) from stats..consegnato a where a.anno = year(getdate())-2 and d.CodiceCliente = a.CodiceCliente and a.CodiceFornitore = d.CodiceFornitore) as ConsegnatoDueAnnifa,
         (select isnull(sum(a.totriga),0) from stats..consegnato a where a.anno = year(getdate())-1 and d.CodiceCliente = a.CodiceCliente and a.CodiceFornitore = d.CodiceFornitore) as ConsegnatoUnAnnofa,
@@ -79,10 +76,9 @@ function Dashboard({ isVisible, ordini }) {
                 tabellaDati={tabellaDati}
             />
 
-            {/* Pulsanti sempre visibili */}
-          {/* Pulsanti + totale risultati */}
+           
 <div className="flex justify-between mt-4 items-center">
-  {/* Pulsanti a sinistra */}
+
   <div className="flex space-x-3">
     <button
       onClick={exportToExcel}
@@ -99,14 +95,13 @@ function Dashboard({ isVisible, ordini }) {
     </button>
   </div>
 
-  {/* Totale risultati a destra */}
   <div className="text-gray-700 font-medium">
     Totale risultati: <span className="text-black font-bold">{tabellaDati.length}</span>
   </div>
 </div>
 
             <div>
-                <DynamicTable query={query} onDataLoad={setTabellaDati} /> {/* 🔹 passa setTabellaDati */}
+                <DynamicTable query={query} onDataLoad={setTabellaDati} />
             </div>
         </div>
     ) : (
