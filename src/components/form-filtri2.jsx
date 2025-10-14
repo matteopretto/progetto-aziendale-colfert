@@ -8,7 +8,6 @@ function FormFiltri2({ showFilter, sezione, setTxt, setShowDashboard, fetchOrdin
 
     const [filtersList, setFiltersList] = useState([]);
     const [filtersValues, setFiltersValues] = useState({});
-    let yes = false;
 
     useEffect(() => {
         async function loadFilters() {
@@ -18,7 +17,6 @@ function FormFiltri2({ showFilter, sezione, setTxt, setShowDashboard, fetchOrdin
                 const currentFilters = data[sezione] || [];
                 setFiltersList(currentFilters);
 
-                // Inizializza valori di default
                 const defaultValues = {};
                 currentFilters.forEach(f => {
                     if (f === "dadata") defaultValues[f] = dataInizioDefault;
@@ -30,7 +28,6 @@ function FormFiltri2({ showFilter, sezione, setTxt, setShowDashboard, fetchOrdin
                 console.error("Errore caricamento filtri:", err);
             }
         }
-
         loadFilters();
     }, [sezione]);
 
@@ -38,128 +35,30 @@ function FormFiltri2({ showFilter, sezione, setTxt, setShowDashboard, fetchOrdin
         event.preventDefault();
         setTxt("Hai selezionato i seguenti filtri: " + JSON.stringify(filtersValues));
         setShowDashboard(true);
-
         if (onApplyFilters) onApplyFilters(filtersValues);
-
-       /* if (fetchOrdini) {
-            await fetchOrdini(filtersValues);
-        } */
     };
 
-    // 🔸 Dispatcher che disegna dinamicamente ogni filtro
-    function renderFilter(filterName, value) {
-        const handleChange = (e) =>
-            setFiltersValues((prev) => ({ ...prev, [filterName]: e.target.value }));
-
-        switch (filterName) {
-            case "anno":
-                return (
-                    <div key={filterName}>
-                        <label className="mr-2 text-gray-700">Anno:</label>
-                        <input
-                            type="number"
-                            min="2000"
-                            max="2100"
-                            className="p-2 border border-gray-300 rounded"
-                            value={value || ""}
-                            onChange={handleChange}
-                        />
-                    </div>
-                );
-
-            case "mese":
-                return (
-                    <div key={filterName}>
-                        <label className="mr-2 text-gray-700">Mese:</label>
-                        <select
-                            className="p-2 border border-gray-300 rounded"
-                            value={value || ""}
-                            onChange={handleChange}
-                        >
-                            <option value="">Tutti</option>
-                            {[
-                                "Gennaio", "Febbraio", "Marzo", "Aprile",
-                                "Maggio", "Giugno", "Luglio", "Agosto",
-                                "Settembre", "Ottobre", "Novembre", "Dicembre"
-                            ].map((m, i) => (
-                                <option key={i + 1} value={i + 1}>{m}</option>
-                            ))}
-                        </select>
-                    </div>
-                );
-
-            case "dadata":
-            case "adata":
-                return (
-                    <div key={filterName}>
-                        <label className="mr-2 text-gray-700">
-                            {filterName === "dadata" ? "Data Inizio:" : "Data Fine:"}
-                        </label>
-                        <input
-                            type="date"
-                            className="p-2 border border-gray-300 rounded"
-                            value={value || ""}
-                            onChange={handleChange}
-                        />
-                    </div>
-                );
-
-            case "provincia":
-            case "agente":
-            case "classecliente":
-            case "Listino":
-            case "Articolo":
-            case "codiceCliente":
-            case "utente":
-            case "settore":
-            case "azienda":
-            case "iban":
-            case "daArticolo":
-            case "adArticolo":
-            case "sede":
-                return (
-                    <div key={filterName}>
-                        <label className="mr-2 text-gray-700 capitalize">
-                            {filterName}:
-                        </label>
-                        <input
-                            type="text"
-                            className="p-2 border border-gray-300 rounded"
-                            value={value || ""}
-                            onChange={handleChange}
-                        />
-                    </div>
-                );
-
-            default:
-                return null;
-        }
-    }
-
-    if (!showFilter) {
-        return (
-            <div className="bg-white p-6 rounded shadow-md w-full">
-                <p>Seleziona dalla barra laterale i dati da visualizzare.</p>
-            </div>
-        );
-    }
 
     return (
-        <div className="bg-white p-6 rounded shadow-md w-full">
-            <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-                <div className="flex flex-wrap gap-4">
-                    
+        <div className="bg-gray-50 p-3 rounded-xl shadow-md w-full overflow-y-auto custom-scroll">
+            <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
+              
+                {/* Filtri compatti */}
+                <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-2">
                     {filtersList.length === 0 ? (
-                        <p className="italic text-gray-600">
-                            Non sono necessari filtri per questa ricerca.
+                        <p className="italic text-gray-600 text-sm col-span-full">
+                            Nessun filtro richiesto.
                         </p>
                     ) : (
                         filtersList.map((filterName) => {
                             const FilterComponent = FilterComponents[filterName];
                             if (!FilterComponent) return null;
-
                             return (
-                                <div key={filterName} className="w-1/3">
+                                <div
+                                    key={filterName}
+                                    className="flex flex-col bg-white px-3 py-2 rounded-lg shadow-sm border border-gray-200 hover:border-gray-300 transition"
+                                >
+                                    
                                     <FilterComponent
                                         value={filtersValues[filterName] || ""}
                                         onChange={(value) =>
@@ -175,15 +74,34 @@ function FormFiltri2({ showFilter, sezione, setTxt, setShowDashboard, fetchOrdin
                     )}
                 </div>
 
-                <div className="flex justify-end mt-4">
+                {/* Pulsante piccolo */}
+                <div className="flex justify-end mt-2">
                     <button
-                        className="w-1/8 bg-[rgb(255,186,0)] text-black py-2 px-4 rounded border border-black hover:bg-blue-600 transition-colors text-center"
+                        className="bg-[rgb(255,186,0)] hover:bg-yellow-500 text-black font-medium py-1.5 px-4 rounded-lg text-sm shadow-sm border border-gray-300 transition-all"
                         type="submit"
                     >
-                        {filtersList.length > 0 ? "APPLICA" : "CERCA"}
+                        {filtersList.length > 0 ? "Applica" : "Cerca"}
                     </button>
                 </div>
             </form>
+
+            {/* Scrollbar moderna */}
+            <style jsx>{`
+                .custom-scroll::-webkit-scrollbar {
+                    height: 6px;
+                    width: 6px;
+                }
+                .custom-scroll::-webkit-scrollbar-track {
+                    background: transparent;
+                }
+                .custom-scroll::-webkit-scrollbar-thumb {
+                    background-color: #c1c1c1;
+                    border-radius: 10px;
+                }
+                .custom-scroll::-webkit-scrollbar-thumb:hover {
+                    background-color: #a6a6a6;
+                }
+            `}</style>
         </div>
     );
 }

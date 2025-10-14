@@ -8,7 +8,7 @@ function Dashboard({ isVisible, sezioneAttiva, setSezioneAttiva, filtri }) {
   const [showPopupMail, setShowPopupMail] = useState(false);
   const [tabellaDati, setTabellaDati] = useState([]);
   const [query, setQuery] = useState("");
-  const [searchTerm, setSearchTerm] = useState(""); // 🔹 stato ricerca
+  const [searchTerm, setSearchTerm] = useState("");
 
   const showPopUpMail = () => setShowPopupMail(!showPopupMail);
   const closePopUpMail = () => setShowPopupMail(false);
@@ -55,7 +55,6 @@ function Dashboard({ isVisible, sezioneAttiva, setSezioneAttiva, filtri }) {
     loadQuery();
   }, [sezioneAttiva, filtri]);
 
-  // 🔹 Filtra i risultati già caricati
   const filteredData = tabellaDati.filter((row) =>
     Object.values(row).some(
       (value) =>
@@ -65,7 +64,6 @@ function Dashboard({ isVisible, sezioneAttiva, setSezioneAttiva, filtri }) {
   );
 
   const exportToExcel = () => {
-    // 🔹 usa filteredData per l'export, niente export se ricerca non trova risultati
     if (!filteredData || filteredData.length === 0) return;
 
     const ws = XLSX.utils.json_to_sheet(filteredData);
@@ -100,47 +98,58 @@ function Dashboard({ isVisible, sezioneAttiva, setSezioneAttiva, filtri }) {
         tabellaDati={filteredData}
       />
 
-      {/* 🔹 Pulsanti, ricerca e totale risultati */}
-      <div className="flex justify-between mt-4 items-center">
-        <div className="flex space-x-3 items-center">
-          <button
-            onClick={exportToExcel}
-            className="bg-[rgb(255,186,0)] text-black px-4 py-2 rounded border border-black hover:bg-blue-600 transition-colors"
-          >
-            Esporta in Excel
-          </button>
+      {/* 🔹 Wrapper Tabella + Header come entità unica */}
+      <div className=" border border-gray-300 rounded-2xl overflow-hidden shadow-lg bg-white">
+        {/* 🔹 Header comandi */}
+        <div className="flex justify-between items-center px-5 py-3 bg-gradient-to-r from-gray-300 to-gray-400 border-b border-gray-300">
+          <div className="flex space-x-3 items-center">
+            <button
+              onClick={exportToExcel}
+              className="bg-white text-gray-800 px-4 py-2 rounded-lg border border-gray-300 font-medium shadow-sm hover:bg-gray-100 transition-all"
+            >
+              📊 Esporta
+            </button>
 
-          <button
-            onClick={showPopUpMail}
-            className="bg-[rgb(255,186,0)] mr-8 text-black px-4 py-2 rounded border border-black hover:bg-blue-600 transition-colors"
-          >
-            Invia
-          </button>
+            <button
+              onClick={showPopUpMail}
+              className="bg-white text-gray-800 px-4 py-2 rounded-lg border border-gray-300 font-medium shadow-sm hover:bg-gray-100 transition-all"
+            >
+              ✉️ Invia
+            </button>
 
-          <input
-            type="text"
-            placeholder="Cerca..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="border border-gray-400 rounded px-3 py-2 text-sm w-64 focus:outline-none focus:ring-2 focus:ring-yellow-500"
-          />
+            <input
+              type="text"
+              placeholder="🔍 Cerca..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="border border-gray-300 rounded-lg px-3 py-2 text-sm w-64 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all bg-white"
+            />
+          </div>
+
+          <div className="text-gray-800 text-sm font-semibold bg-white px-4 py-2 rounded-lg border border-gray-300 shadow-sm">
+            Totale:{" "}
+            <span className="text-black font-bold">{filteredData.length}</span>
+          </div>
         </div>
 
-        <div className="text-gray-700 font-medium">
-          Totale risultati: <span className="text-black font-bold">{filteredData.length}</span>
+        {/* 🔹 Tabella */}
+        <div>
+          {query ? (
+            <DynamicTable
+              query={query}
+              onDataLoad={setTabellaDati}
+              filteredData={filteredData}
+            />
+          ) : (
+            <p className="text-gray-500 mt-4 italic text-center py-10">
+              Seleziona una sezione per visualizzare i dati.
+            </p>
+          )}
         </div>
-      </div>
-
-      <div>
-        {query ? (
-          <DynamicTable query={query} onDataLoad={setTabellaDati} filteredData={filteredData} />
-        ) : (
-          <p className="text-gray-500 mt-4">Seleziona una sezione per visualizzare i dati</p>
-        )}
       </div>
     </div>
   ) : (
-    <p>Setta i filtri e vedrai i risultati</p>
+    <p className="text-gray-500 italic">Setta i filtri e vedrai i risultati.</p>
   );
 }
 

@@ -145,7 +145,7 @@ export const Sidebar = ({
                 }`}
               >
                 
-                <span className="italic text-sm">{item.label}</span>
+                <span className="font-Times text-sm">{item.label}</span>
               </button>
             )}
             {item.children && openItems.has(item.id) && renderMenu(item.children, level + 1)}
@@ -189,6 +189,8 @@ export const Sidebar = ({
         {menu.length > 0 &&
           renderMenu(searchTerm ? filterMenuAndOpen(menu, searchTerm).filtered : menu)}
       </nav>
+      <div className="mb-18"></div>
     </div>
+    
   );
 };

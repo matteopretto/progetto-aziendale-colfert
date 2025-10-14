@@ -105,33 +105,54 @@ function MainPage() {
         <div className="flex-1 flex flex-col overflow-hidden">
           {/* PANNELLO FILTRI */}
           <div
-            ref={panelRef}
-            style={{
-              height: showFilter ? `${panelHeight}px` : `${MIN_HEIGHT}px`,
-              transition: dragging.current ? "none" : "height 200ms ease",
-              display: showFilter ? "block" : "none",
-            }}
-            className="relative bg-white shadow-lg border border-gray-200 overflow-hidden rounded-b-lg"
+            className={`relative transition-all duration-500 ease-in-out ${showFilter ? "max-h-[280px]" : "max-h-[35px]"
+              } bg-white shadow-lg border border-gray-200 overflow-hidden rounded-b-lg`}
           >
-            <div className="p-4 h-[calc(100%-1.25rem)] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200">
-              <FormFiltri2
-                showFilter={showFilter}
-                sezione={sezioneAttiva}
-                setTxt={setText}
-                setShowDashboard={setShowDashboard}
-                fetchOrdini={fetchOrdini}
-                onApplyFilters={setFiltri}
-              />
+            {/* Barra toggle integrata */}
+            <div
+              onClick={() => setShowFilter(!showFilter)}
+              className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-5 bg-gray-100 border border-gray-300 border-t-0 rounded-b-md cursor-pointer flex items-center justify-center text-gray-600 text-xs hover:bg-yellow-100 transition-all shadow-sm"
+            >
+              {showFilter ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                  className="w-3 h-3"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                  className="w-3 h-3"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              )}
             </div>
 
+            {/* Contenuto del pannello */}
             <div
-              onMouseDown={handleMouseDown}
-              onTouchStart={handleTouchStart}
-              className="absolute bottom-0 left-1/2 -translate-x-1/2 w-20 h-4 bg-gray-300 border border-gray-300 rounded-t-md flex items-center justify-center cursor-ns-resize hover:bg-gray-400 transition"
-              role="separator"
-              aria-label="Trascina per ridimensionare"
+              className={`transition-opacity duration-500 ${showFilter ? "opacity-100 pt-6" : "opacity-0 pointer-events-none"
+                }`}
             >
-              <div className="w-12 h-[3px] bg-gray-500 rounded-full"></div>
+              <div className="p-4">
+                <FormFiltri2
+                  showFilter={showFilter}
+                  sezione={sezioneAttiva}
+                  setTxt={setText}
+                  setShowDashboard={setShowDashboard}
+                  fetchOrdini={fetchOrdini}
+                  onApplyFilters={setFiltri}
+                />
+              </div>
             </div>
           </div>
 
