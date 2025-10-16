@@ -109,46 +109,58 @@ export const Sidebar = ({
     return { filtered, openIds };
   };
 
-  useEffect(() => {
-    if (!searchTerm) return;
+useEffect(() => {
+  if (!searchTerm) {
+    setOpenItems(new Set()); // chiude tutti i nodi
+    setAllOpen(false);       // resetta il pulsante apri/chiudi tutto
+  } else {
     const { openIds } = filterMenuAndOpen(menu, searchTerm);
     setOpenItems(openIds);
-  }, [searchTerm, menu]);
+  }
+}, [searchTerm, menu]);
+
 
   const renderMenu = (items, level = 0) => (
-    <ul className={`${level > 0 ? 'ml-5 mt-1 space-y-1 border-l border-gray-400 pl-3' : ''}`}>
+    <ul className={`${level > 0 ? 'ml-4 mt-1 space-y-1 border-l border-gray-300 pl-3' : ''}`}>
       {items.map(item => {
         const isSelected = sezioneAttiva === item.id;
-        const containsSearch = searchTerm && item.label.toLowerCase().includes(searchTerm.toLowerCase());
 
         return (
           <li key={item.id}>
             {item.children ? (
               <div
-                className={`flex items-center gap-2 px-3 py-2 rounded-md cursor-pointer 
-                ${isSelected
-                  ? 'bg-yellow-500 text-white'
-                  : 'hover:bg-yellow-100 text-gray-800 transition-colors duration-150'
-                }`}
+                className={`flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer 
+                  ${isSelected
+                    ? 'bg-yellow-400 text-black font-semibold shadow-inner'
+                    : 'hover:bg-yellow-100 text-gray-800 transition-colors duration-200'
+                  }`}
                 onClick={() => toggleItem(item)}
               >
                 <ListVideoIcon className="w-5 h-5 text-gray-700" />
                 <span className="font-semibold text-sm">{item.label}</span>
+                <SquareChevronRight
+                  className={`ml-auto w-4 h-4 transition-transform duration-200 ${
+                    openItems.has(item.id) ? 'rotate-90 text-yellow-700' : 'text-gray-500'
+                  }`}
+                />
               </div>
             ) : (
               <button
                 onClick={() => handleClick(item.id)}
-                className={`w-full flex items-center gap-2 px-3 py-2 rounded-md border border-gray-300 text-left
-                ${isSelected
-                  ? 'bg-yellow-400 text-black font-semibold'
-                  : 'bg-white hover:bg-yellow-50 text-gray-800 transition-all duration-150'
-                }`}
+                className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-left
+                  ${isSelected
+                    ? 'bg-yellow-400 text-black font-semibold shadow-inner'
+                    : 'bg-white hover:bg-yellow-50 text-gray-800 transition-all duration-200'
+                  }`}
               >
-                
                 <span className="font-Times text-sm">{item.label}</span>
               </button>
             )}
-            {item.children && openItems.has(item.id) && renderMenu(item.children, level + 1)}
+            {item.children && openItems.has(item.id) && (
+              <div className="transition-all duration-300 ease-in-out">
+                {renderMenu(item.children, level + 1)}
+              </div>
+            )}
           </li>
         );
       })}
@@ -157,14 +169,14 @@ export const Sidebar = ({
 
   return (
     <div
-      className={`bg-gradient-to-b from-gray-200 to-gray-300 text-black w-full h-screen px-3 py-2 absolute inset-y-0 left-0 transform transition-transform duration-300 ease-in-out
-      ${isOpen ? "translate-x-0" : "-translate-x-full"} md:relative overflow-y-auto shadow-lg border-r border-gray-400`}
+      className={`bg-gradient-to-b from-gray-100 to-gray-200 text-black w-full h-screen px-3 py-2 absolute inset-y-0 left-0 transform transition-transform duration-300 ease-in-out
+      ${isOpen ? "translate-x-0" : "-translate-x-full"} md:relative overflow-y-auto shadow-lg border-r border-gray-300`}
     >
       <div className="flex items-center justify-between mb-3">
         <h2 className="text-lg font-bold text-gray-700 tracking-wide">📂 Menu</h2>
         <button
           onClick={toggleAll}
-          className="p-2 rounded-md bg-white border border-gray-300 hover:bg-yellow-100 transition-all"
+          className="p-2 rounded-md bg-white border border-gray-300 hover:bg-yellow-100 transition-all duration-200"
           title={allOpen ? "Chiudi tutto" : "Apri tutto"}
         >
           {allOpen ? (
@@ -181,7 +193,7 @@ export const Sidebar = ({
           value={searchTerm}
           onChange={e => setSearchTerm(e.target.value)}
           placeholder="🔍 Filtra voci..."
-          className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 bg-white placeholder-gray-500 text-sm"
+          className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 bg-white placeholder-gray-500 text-sm transition-shadow duration-200 shadow-sm hover:shadow-md"
         />
       </div>
 
@@ -191,6 +203,5 @@ export const Sidebar = ({
       </nav>
       <div className="mb-18"></div>
     </div>
-    
   );
 };

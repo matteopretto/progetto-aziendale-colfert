@@ -10,9 +10,11 @@ function MainPage() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [showDashboard, setShowDashboard] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
-  const [ordini, setOrdini] = useState([]);
   const [filtri, setFiltri] = useState({});
   const [panelHeight, setPanelHeight] = useState(220);
+
+  // --- NUOVO STATO PER EXPAND/SHRINK ---
+  const [isCompact, setIsCompact] = useState(false);
 
   const panelRef = useRef(null);
   const dragging = useRef(false);
@@ -28,13 +30,15 @@ function MainPage() {
       const res = await fetch(`http://localhost:3001/orders?${query}`);
       if (!res.ok) throw new Error("Errore fetch ordini");
       const data = await res.json();
-      setOrdini(data);
+      // setOrdini(data); // Non necessario se non usi più ordini separatamente
     } catch (err) {
       console.error("fetchOrdini error:", err);
     }
   };
 
   const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
+
+  const toggleCompact = () => setIsCompact((prev) => !prev);
 
   // --- DRAG ---
   const startDrag = (clientY) => {
@@ -89,11 +93,9 @@ function MainPage() {
       {/* MAIN */}
       <div className="flex flex-1 overflow-hidden">
         {/* SIDEBAR */}
-        <div
-          className={`transition-all duration-300 ${isSidebarOpen ? "w-[21%]" : "w-0"} flex-none`}
-        >
+        <div className={`transition-all duration-300 ${!isCompact && isSidebarOpen ? "w-[21%]" : "w-0"} flex-none`}>
           <Sidebar
-            isOpen={isSidebarOpen}
+            isOpen={!isCompact && isSidebarOpen}
             setSezioneAttiva={setSezioneAttiva}
             setShowDashboard={setShowDashboard}
             setShowFilter={setShowFilter}
@@ -103,49 +105,32 @@ function MainPage() {
 
         {/* CONTENUTO */}
         <div className="flex-1 flex flex-col overflow-hidden">
-          {/* PANNELLO FILTRI */}
-          <div
-            className={`relative transition-all duration-500 ease-in-out ${showFilter ? "max-h-[280px]" : "max-h-[35px]"
-              } bg-white shadow-lg border border-gray-200 overflow-hidden rounded-b-lg`}
-          >
-            {/* Barra toggle integrata */}
+          {/* PULSANTE TOGGLE FORM FILTRI SEMPRE VISIBILE */}
+          <div className="flex justify-center mb-1 z-10 relative">
             <div
-              onClick={() => setShowFilter(!showFilter)}
-              className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-5 bg-gray-100 border border-gray-300 border-t-0 rounded-b-md cursor-pointer flex items-center justify-center text-gray-600 text-xs hover:bg-yellow-100 transition-all shadow-sm"
+              onClick={() => setShowFilter(prev => !prev)}
+              className="w-24 h-5 bg-gray-100 border border-gray-300 rounded-b-md cursor-pointer flex items-center justify-center text-gray-600 text-xs hover:bg-yellow-100 transition-all shadow-sm"
             >
               {showFilter ? (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2}
-                  stroke="currentColor"
-                  className="w-3 h-3"
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-3 h-3">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
                 </svg>
               ) : (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2}
-                  stroke="currentColor"
-                  className="w-3 h-3"
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-3 h-3">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
                 </svg>
               )}
             </div>
+          </div>
 
-            {/* Contenuto del pannello */}
-            <div
-              className={`transition-opacity duration-500 ${showFilter ? "opacity-100 pt-6" : "opacity-0 pointer-events-none"
-                }`}
-            >
+          {/* PANNELLO FILTRI */}
+          <div
+            className={`relative transition-all duration-500 ease-in-out ${!isCompact && showFilter ? `max-h-[280px]` : "max-h-0"} bg-white shadow-lg border border-gray-200 overflow-hidden rounded-b-lg`}
+          >
+            <div className={`transition-opacity duration-500 ${!isCompact && showFilter ? "opacity-100 pt-6" : "opacity-0 pointer-events-none"}`}>
               <div className="p-4">
                 <FormFiltri2
-                  showFilter={showFilter}
+                  showFilter={showFilter && !isCompact}
                   sezione={sezioneAttiva}
                   setTxt={setText}
                   setShowDashboard={setShowDashboard}
@@ -166,6 +151,8 @@ function MainPage() {
                 sezioneAttiva={sezioneAttiva}
                 setSezioneAttiva={setSezioneAttiva}
                 filtri={filtri}
+                isCompact={isCompact}
+                onToggleCompact={() => setIsCompact(prev => !prev)}
               />
             )}
           </div>

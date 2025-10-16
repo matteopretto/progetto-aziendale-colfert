@@ -667,40 +667,42 @@ dbg.setOutput((...a) => console.debug(...a));
  */
 
 
-//async function SendMail(from, to, cc, bcc, object, body, attachment, opts = {}) 
-export async function SendMail(from, to, cc, bcc, object, body, attachment) 
-{
-  let opts = {endpoint: "https://giallocolfert.com:3000/api/mail/json/sendmail", token: "Bearer pippopippo", authScheme: "Bearer", timeoutMs: 30000 };
-  to = to.replaceAll(';',',');
-  cc = cc.replaceAll(';',',');
-  bcc = bcc.replaceAll(';',',');
-  attachment = attachment.replaceAll(';',',');
-//  let opts = {endpoint: "http://localhost:3000/api/mail/json/sendmail", token: "Bearer pippopippo", authScheme: "Bearer", timeoutMs: 30000 };
-  const endpoint = (opts.endpoint ?? (typeof window !== 'undefined' && window.MAIL_API_ENDPOINT)) || '/api/mail/json/sendmail';
+export async function SendMail(from, to, cc, bcc, object, body, attachments) {
+  let opts = { 
+    endpoint: "https://giallocolfert.com:3000/api/mail/json/sendmail", 
+    token: "Bearer pippopippo", 
+    authScheme: "Bearer", 
+    timeoutMs: 30000 
+  };
 
+  to = to.replaceAll(';', ',');
+  cc = cc.replaceAll(';', ',');
+  bcc = bcc.replaceAll(';', ',');
+
+  const endpoint = (opts.endpoint ?? (typeof window !== 'undefined' && window.MAIL_API_ENDPOINT)) || '/api/mail/json/sendmail';
   const headers = { 'Content-Type': 'application/json' };
 
-  // Token da user.token (globale) a meno che non venga passato in opts
   const rawToken = opts.token ?? ((typeof user !== 'undefined' && user && user.token) ? user.token : undefined);
   if (rawToken) {
-    // Se il token contiene già uno schema (es. "Bearer x" o "Token x"), lo uso così com'è
-    // altrimenti applico lo schema di default
     const hasScheme = /\s/.test(rawToken);
     const scheme = opts.authScheme ?? 'Bearer';
     headers['Authorization'] = hasScheme ? rawToken : `${scheme} ${rawToken}`;
   }
 
   const normalizeList = (v) => {
-    if (Array.isArray(v)) {
-      v = v.join(',');
-    }
-    return String(v ?? '')
-      .split(',')
-      .map(s => s.trim())
-      .filter(Boolean)
-      // deduplica preservando l'ordine
-      .filter((item, idx, arr) => arr.indexOf(item) === idx);
+    if (Array.isArray(v)) return v.join(',').split(',').map(s => s.trim()).filter(Boolean);
+    return String(v ?? '').split(',').map(s => s.trim()).filter(Boolean);
   };
+
+  // SUPPORTO ALLEGATI IN MEMORIA
+  let attachmentsList = [];
+  if (Array.isArray(attachments) && attachments.length > 0) {
+    if (typeof attachments[0] === 'object' && attachments[0].filename && attachments[0].content) {
+      attachmentsList = attachments; // allegati in memoria, base64
+    } else {
+      attachmentsList = normalizeList(attachments); // vecchio comportamento
+    }
+  }
 
   const payload = {
     from: (from ?? '').trim(),
@@ -709,7 +711,7 @@ export async function SendMail(from, to, cc, bcc, object, body, attachment)
     bcc: normalizeList(bcc),
     object: (object ?? '').trim(),
     body: body ?? '',
-    attachment: normalizeList(attachment)
+    attachments: attachmentsList
   };
 
   const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
@@ -727,16 +729,6 @@ export async function SendMail(from, to, cc, bcc, object, body, attachment)
     let data;
     try { data = JSON.parse(text); } catch { data = text; }
 
-    // Ritorno sempre un oggetto strutturato (non lancio eccezione su HTTP error) // anche no
-/*
-    return {
-      ok: res.ok,
-      status: res.status,
-      headers: Object.fromEntries(res.headers.entries()),
-      data,
-      raw: text
-    };
-*/
     return data;
   } catch (err) {
     return {
@@ -750,6 +742,8 @@ export async function SendMail(from, to, cc, bcc, object, body, attachment)
     clearTimeout(tmo);
   }
 }
+
+
 
 // (facoltativo) esportazione o aggancio al global
 if (typeof globalThis !== 'undefined') globalThis.SendMail = SendMail;

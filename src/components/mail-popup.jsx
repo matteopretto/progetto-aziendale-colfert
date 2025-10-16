@@ -1,31 +1,25 @@
 import React, { useState } from "react";
-import { SendMail } from "../libs/clientclasses";
 import * as XLSX from 'xlsx';
 
 export default function MailPopup({ visible, onClose, defaultEmail, tabellaDati }) {
   const [loading, setLoading] = useState(false);
-  const messaggio = "Buongiorno, in allegato i dati relativi alle statistiche."
+  const messaggio = "Buongiorno, in allegato i dati relativi alle statistiche.";
   const oggetto = "Statistiche Colfert ";
 
   if (!visible) return null;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const from = "noreply@colfert.com";
-    const to = e.target.destinatario.value;
-    const cc = e.target.cc.value;
-    const subject = e.target.subject.value;
-    const body = e.target.message.value;
-
     setLoading(true);
 
     try {
+      // Genera file Excel
       const ws = XLSX.utils.json_to_sheet(tabellaDati);
       const wb = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
       const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
 
+      // Converte in base64
       const arrayBufferToBase64 = (buffer) => {
         let binary = "";
         const bytes = new Uint8Array(buffer);
@@ -34,20 +28,27 @@ export default function MailPopup({ visible, onClose, defaultEmail, tabellaDati 
         }
         return btoa(binary);
       };
-
       const excelBase64 = arrayBufferToBase64(excelBuffer);
       const attachmentString = `statistiche.xlsx;${excelBase64}`;
 
-      const result = await SendMail(
-        from,
-        to,
-        cc,
-        "",
-        subject,
-        body,
-        attachmentString
-      );
+      // Chiamata API al backend
+ const response = await fetch("http://localhost:3001/mail/send", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    to: e.target.destinatario.value,
+    cc: e.target.cc.value,
+    bcc: "",
+    subject: e.target.subject.value,
+    body: e.target.message.value,
+    attachments: [
+      { filename: "statistiche.xlsx", contentBase64: excelBase64 }
+    ]
+  }),
+});
 
+
+      const result = await response.json();
       console.log("Risposta server:", result);
       alert("Email inviata con successo!");
       onClose();
@@ -61,10 +62,8 @@ export default function MailPopup({ visible, onClose, defaultEmail, tabellaDati 
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      {/* Sfondo sfocato */}
       <div className="absolute inset-0 bg-black/10 backdrop-blur-sm"></div>
 
-      {/* Popup principale */}
       <div className="bg-gray-300 p-8 rounded-2xl shadow-2xl w-[600px] max-w-[90%] relative z-10 text-center">
         <h2 className="text-lg font-bold underline mb-4 text-gray-800">
           COMPILA IL FORM

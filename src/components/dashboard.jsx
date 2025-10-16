@@ -3,12 +3,17 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import MailPopup from './mail-popup';
 import DynamicTable from './dynamic-table';
+import ExportPopup from './export-popup';
+import { Expand, Shrink } from 'lucide-react';
 
-function Dashboard({ isVisible, sezioneAttiva, setSezioneAttiva, filtri }) {
+function Dashboard({ isVisible, sezioneAttiva, setSezioneAttiva, filtri, isCompact, onToggleCompact }) {
   const [showPopupMail, setShowPopupMail] = useState(false);
   const [tabellaDati, setTabellaDati] = useState([]);
   const [query, setQuery] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [availableColumns, setAvailableColumns] = useState([]);
+  const [originalData, setOriginalData] = useState([]);
+  const [showExportPopup, setShowExportPopup] = useState(false);
 
   const showPopUpMail = () => setShowPopupMail(!showPopupMail);
   const closePopUpMail = () => setShowPopupMail(false);
@@ -31,6 +36,7 @@ function Dashboard({ isVisible, sezioneAttiva, setSezioneAttiva, filtri }) {
 
     return queryFinale;
   };
+
 
   useEffect(() => {
     if (!sezioneAttiva) return;
@@ -63,6 +69,7 @@ function Dashboard({ isVisible, sezioneAttiva, setSezioneAttiva, filtri }) {
     )
   );
 
+
   const exportToExcel = () => {
     if (!filteredData || filteredData.length === 0) return;
 
@@ -89,8 +96,51 @@ function Dashboard({ isVisible, sezioneAttiva, setSezioneAttiva, filtri }) {
     saveAs(blob, filename);
   };
 
+
+  const handleExport = (selectedColumns) => {
+    if (!filteredData || filteredData.length === 0) return;
+
+    const dataToExport = filteredData.map((row) => {
+      const filteredRow = {};
+      selectedColumns.forEach((col) => {
+        filteredRow[col] = row[col];
+      });
+      return filteredRow;
+    });
+
+    const ws = XLSX.utils.json_to_sheet(dataToExport);
+    ws['!cols'] = Object.keys(dataToExport[0]).map((col) => {
+      const maxLength = Math.max(
+        col.length,
+        ...dataToExport.map((row) => (row[col] ? row[col].toString().length : 0))
+      );
+      return { wch: maxLength + 5 };
+    });
+
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
+
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    const filename = `export-statistics-${yyyy}_${mm}_${dd}.xlsx`;
+
+    saveAs(blob, filename);
+  };
+
   return isVisible ? (
     <div className="flex flex-col">
+ 
+      <ExportPopup
+        visible={showExportPopup}
+        onClose={() => setShowExportPopup(false)}
+        columns={availableColumns}
+        onConfirm={(selectedColumns) => handleExport(selectedColumns)}
+      />
+
       <MailPopup
         visible={showPopupMail}
         onClose={closePopUpMail}
@@ -98,13 +148,17 @@ function Dashboard({ isVisible, sezioneAttiva, setSezioneAttiva, filtri }) {
         tabellaDati={filteredData}
       />
 
-      {/* 🔹 Wrapper Tabella + Header come entità unica */}
-      <div className=" border border-gray-300 rounded-2xl overflow-hidden shadow-lg bg-white">
+      <div className="border border-gray-300 rounded-2xl overflow-hidden shadow-lg bg-white">
         {/* 🔹 Header comandi */}
         <div className="flex justify-between items-center px-5 py-3 bg-gradient-to-r from-gray-300 to-gray-400 border-b border-gray-300">
           <div className="flex space-x-3 items-center">
             <button
-              onClick={exportToExcel}
+              onClick={() => {
+                if (tabellaDati.length > 0) {
+                  setAvailableColumns(Object.keys(tabellaDati[0]));
+                  setShowExportPopup(true);
+                }
+              }}
               className="bg-white text-gray-800 px-4 py-2 rounded-lg border border-gray-300 font-medium shadow-sm hover:bg-gray-100 transition-all"
             >
               📊 Esporta
@@ -126,9 +180,20 @@ function Dashboard({ isVisible, sezioneAttiva, setSezioneAttiva, filtri }) {
             />
           </div>
 
-          <div className="text-gray-800 text-sm font-semibold bg-white px-4 py-2 rounded-lg border border-gray-300 shadow-sm">
-            Totale:{" "}
-            <span className="text-black font-bold">{filteredData.length}</span>
+          {/* 🔹 Totale + pulsante expand/shrink */}
+          <div className="flex items-center space-x-2 text-gray-800 text-sm font-semibold bg-white px-4 py-2 rounded-lg border border-gray-300 shadow-sm">
+            <span className="mr-1">Totale:</span> <span className="text-black font-bold">{filteredData.length}</span>
+            <button
+              onClick={onToggleCompact}
+              className="ml-2 p-1 rounded hover:bg-gray-200 transition-all"
+              title={isCompact ? "Mostra sidebar e filtri" : "Compatta tutto"}
+            >
+              {isCompact ? (
+                <Shrink className="w-6 h-5" />
+              ) : (
+                <Expand className="w-6 h-5" />
+              )}
+            </button>
           </div>
         </div>
 
@@ -137,7 +202,10 @@ function Dashboard({ isVisible, sezioneAttiva, setSezioneAttiva, filtri }) {
           {query ? (
             <DynamicTable
               query={query}
-              onDataLoad={setTabellaDati}
+              onDataLoad={(data) => {
+                setTabellaDati(data);
+                setOriginalData(data); // salvo i dati completi
+              }}
               filteredData={filteredData}
             />
           ) : (

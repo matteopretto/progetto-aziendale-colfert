@@ -63,6 +63,7 @@ function LoginForm() {
 
           localStorage.setItem("permissions", JSON.stringify(webstatsPermissions));
           localStorage.setItem("user-role", data.user.role);
+        
           localStorage.setItem("email", data.user.email);
           localStorage.setItem("isLoggedIn", true);
           localStorage.setItem("name", data.user.name);
