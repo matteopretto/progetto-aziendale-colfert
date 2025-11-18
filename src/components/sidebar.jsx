@@ -8,6 +8,7 @@ import {
   ListChevronsUpDown,
   ListChevronsDownUp,
   LampFloor,
+  ClipboardIcon, // Aggiunto per l'icona del tasto 'Copia Codice'
 } from "lucide-react";
 
 export const Sidebar = ({
@@ -21,6 +22,13 @@ export const Sidebar = ({
   const [openItems, setOpenItems] = useState(new Set());
   const [allOpen, setAllOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  // NUOVO: Stato per gestire il menu contestuale (tasto destro)
+  const [contextMenu, setContextMenu] = useState({
+    visible: false,
+    x: 0,
+    y: 0,
+    itemId: null,
+  });
 
   useEffect(() => {
     fetch('/sidebar-datas.json')
@@ -42,6 +50,17 @@ export const Sidebar = ({
       .catch(err => console.error('Errore caricamento sidebar:', err));
   }, []);
 
+  // NUOVO: Rimuove il context menu quando si clicca altrove
+  useEffect(() => {
+    const handleGlobalClick = () => {
+      if (contextMenu.visible) {
+        setContextMenu({ visible: false, x: 0, y: 0, itemId: null });
+      }
+    };
+    window.addEventListener('click', handleGlobalClick);
+    return () => window.removeEventListener('click', handleGlobalClick);
+  }, [contextMenu.visible]);
+
   const toggleItem = (item) => {
     setOpenItems(prev => {
       const newOpen = new Set(prev);
@@ -62,7 +81,35 @@ export const Sidebar = ({
     setSezioneAttiva(sezione);
     setShowDashboard(false);
     setShowFilter(true);
+    localStorage.setItem("sezioneAttiva", sezione);
   };
+
+  // NUOVO: Gestore del click destro (apertura context menu)
+  const handleContextMenu = (e, itemId) => {
+    e.preventDefault(); // Impedisce la comparsa del context menu predefinito del browser
+    setContextMenu({
+      visible: true,
+      x: e.clientX,
+      y: e.clientY,
+      itemId: itemId,
+    });
+  };
+
+  // NUOVO: Gestore della copia in memoria (Clipboard API)
+  const handleCopyCode = () => {
+    if (contextMenu.itemId) {
+      navigator.clipboard.writeText(contextMenu.itemId)
+        .then(() => {
+          console.log(`Codice ${contextMenu.itemId} copiato con successo!`);
+          // Opzionale: Mostra una notifica di successo all'utente
+        })
+        .catch(err => {
+          console.error('Errore durante la copia:', err);
+        });
+      setContextMenu({ visible: false, x: 0, y: 0, itemId: null }); // Chiude il menu dopo la copia
+    }
+  };
+
 
   const toggleAll = () => {
     if (allOpen) {
@@ -109,15 +156,15 @@ export const Sidebar = ({
     return { filtered, openIds };
   };
 
-useEffect(() => {
-  if (!searchTerm) {
-    setOpenItems(new Set()); // chiude tutti i nodi
-    setAllOpen(false);       // resetta il pulsante apri/chiudi tutto
-  } else {
-    const { openIds } = filterMenuAndOpen(menu, searchTerm);
-    setOpenItems(openIds);
-  }
-}, [searchTerm, menu]);
+  useEffect(() => {
+    if (!searchTerm) {
+      setOpenItems(new Set());
+      setAllOpen(false);
+    } else {
+      const { openIds } = filterMenuAndOpen(menu, searchTerm);
+      setOpenItems(openIds);
+    }
+  }, [searchTerm, menu]);
 
 
   const renderMenu = (items, level = 0) => (
@@ -128,6 +175,7 @@ useEffect(() => {
         return (
           <li key={item.id}>
             {item.children ? (
+              // Elemento che è un contenitore/cartella
               <div
                 className={`flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer 
                   ${isSelected
@@ -135,18 +183,20 @@ useEffect(() => {
                     : 'hover:bg-yellow-100 text-gray-800 transition-colors duration-200'
                   }`}
                 onClick={() => toggleItem(item)}
+                onContextMenu={(e) => handleContextMenu(e, item.id)} // NUOVO: Gestione click destro
               >
                 <ListVideoIcon className="w-5 h-5 text-gray-700" />
                 <span className="font-semibold text-sm">{item.label}</span>
                 <SquareChevronRight
-                  className={`ml-auto w-4 h-4 transition-transform duration-200 ${
-                    openItems.has(item.id) ? 'rotate-90 text-yellow-700' : 'text-gray-500'
-                  }`}
+                  className={`ml-auto w-4 h-4 transition-transform duration-200 ${openItems.has(item.id) ? 'rotate-90 text-yellow-700' : 'text-gray-500'
+                    }`}
                 />
               </div>
             ) : (
+              // Elemento finale (sezione)
               <button
                 onClick={() => handleClick(item.id)}
+                onContextMenu={(e) => handleContextMenu(e, item.id)} // NUOVO: Gestione click destro
                 className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-left
                   ${isSelected
                     ? 'bg-yellow-400 text-black font-semibold shadow-inner'
@@ -170,7 +220,7 @@ useEffect(() => {
   return (
     <div
       className={`bg-gradient-to-b from-gray-100 to-gray-200 text-black w-full h-screen px-3 py-2 absolute inset-y-0 left-0 transform transition-transform duration-300 ease-in-out
-      ${isOpen ? "translate-x-0" : "-translate-x-full"} md:relative overflow-y-auto shadow-lg border-r border-gray-300`}
+        ${isOpen ? "translate-x-0" : "-translate-x-full"} md:relative overflow-y-auto shadow-lg border-r border-gray-300`}
     >
       <div className="flex items-center justify-between mb-3">
         <h2 className="text-lg font-bold text-gray-700 tracking-wide">📂 Menu</h2>
@@ -202,6 +252,25 @@ useEffect(() => {
           renderMenu(searchTerm ? filterMenuAndOpen(menu, searchTerm).filtered : menu)}
       </nav>
       <div className="mb-18"></div>
+
+      {/* NUOVO: Context Menu personalizzato */}
+      {contextMenu.visible && (
+        <div
+          style={{
+            top: contextMenu.y,
+            left: contextMenu.x,
+          }}
+          className="absolute z-50 bg-white border border-gray-300 rounded-lg shadow-xl py-1 text-sm whitespace-nowrap"
+        >
+          <button
+            onClick={handleCopyCode}
+            className="flex items-center gap-2 w-full px-4 py-2 text-gray-700 hover:bg-yellow-100 transition-colors duration-150"
+          >
+            <ClipboardIcon className="w-4 h-4" />
+            Copia Codice
+          </button>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,0 +1,234 @@
+DIREZIONE-DIREZIONE
+dir0001-CONSEGNATO MENSILE
+dir0001.01-Per Settore
+dir0001.02-Per Utente
+dir0001.03-Per Cliente
+dir0001.04-Per Agente
+dir0001.05-Per Pagamento
+dir0001.06-Per Vettore
+dir0001.07-Per Articolo
+dir0001.08-Per Fornitore
+KPI-KPI
+kpi0000-GENERALI
+kpi0000.01-Statistiche generali centralino
+kpi0000.02-Statistiche ordine per utente
+kpi0000.03-Statistiche preventivi per utente
+kpi0000.04-Statistiche centralino per utente
+kpi0000.05-Ordini Prenota/Ritira per utente e settore
+kpi0000.06-Consegnato e conto fatture
+kpi0000.07-Statistiche preventivi/ordini per utente e settore
+kpi0000.08-Conto teste e righe
+kpi0001-STATISTICHE PER SETTORE
+kpi0001.01-Prodotto finito per utente
+kpi0001.02-Legno pvc per utente
+kpi0001.03-Prodotto finito per agente
+kpi0001.04-Alluminio ferro per agente
+kpi0001.05-Legno pvc per agente
+kpi0002-STATISTICHE PER PUNTO VENDITA
+kpi0002.01-Ordini per utente
+kpi0002.02-Preventivi per utente
+kpi0002.03-Centralino per utente
+kpi0003-STATISTICHE PER PRODOTTO FINITO
+kpi0003.01-Documenti e righe per utente
+kpi0004-STATISTICHE VARIE
+kpi0004.01-Spese di trasporto
+kpi0004.02-Proporzione evasione totale sugli ordini
+COMMERCIALE-COMMERCIALE
+com0001-CONSEGNATO ANNUALE PER MESE CONTRO ANNO PRECEDENTE
+com0001.01-Consegnato Per settore
+com0001.02-Consegnato per utente
+com0001.03-Consegnato per cliente
+com0001.04-Consegnato per agente
+com0001.07-Consegnato per articolo
+com0001.08-Consegnato per fornitore
+com0001.09-Teste e righe ordini per utente
+com0001.10-Teste e righe ordini per classe utente
+com0001.11-Consegnato per Settore/Utente/Cliente
+com0001.12-Teste e righe ordini per utente
+com0001.13-Consegnato per fornitore e classe documento
+com0001.14-Ordinato per utente e classe utente
+com0001.15-Punti 'YELPUNTIPOSA' per cliente
+com0001.16-Punti 'YELPUNTIPOSA' per agente
+com0001.17-Punti 'YELPUNTIPOSA' per agente e cliente
+com0001.18-Statistica Kanban per cliente
+com0001.19-SpazioGS
+com0001.20-Consegnato per settore con fornitore e buyer
+com0002-ORDINATO
+com0002.01-Elenco ordini OCW automatizzati
+com0002.02-Statistiche ordini OCW automatizzati
+com0002.03-Elenco ordini con pagamento anticipato per anno
+com0002.04-Sconto >=60+8 per fornitore per LEGNO PVC
+com0002.05-Sconto >=60+8 per fornitore per ALLUMINIO
+com0002.06-OCV e OCW con pagamento ANT
+com0002.07-Ordini di invenduto
+com0002.08-Ordini locker
+com0002.09-Conto teste e importo per mese OCV e OCW
+com0003-KPI
+com0003.01-Nuovi KPI ufficio
+com0004-ALTRE STATISTICHE
+com0004.01-Elenco clienti di agente per fatturato
+com0004.02-Numero di righe di articoli sconfezionati
+com0004.03-Confronto consegnato I trimestre anno corrente e precedente
+com0004.04-Analisi omaggi
+com0004.05-Prezzi particolari per codice fornitore o gruppo prezzi
+com0004.06-Confronto consegnato e ordinato autonomo
+com0004.07-Consegnato/Costo/Margine e Nr Consegne anno corrente e precedente
+com0005-DOCUMENTI SPECIALI
+com0005.01-Teste ordinato speciale per agente
+com0005.02-Righe ordinato speciale per cliente e articolo
+com0006-CONSEGNATO ANNUALE PER MESE SENZA OMAGGI
+com0006.01-Consegnato per settore
+com0006.02-Consegnato per utente
+com0006.03-Consegnato per Cliente
+com0006.04-Consegnato per Agente
+ALLUMINIO_FERRO-ALLUMINIO-FERRO
+all0001-Confronto ricevimento/costo/spedito ad oggi
+all0002-Confronto ricevimento/costo/spedito anno solare
+all0003-Confronto ricevimento/costo/spedito per mese
+all0004-Sconto medio fornitore per anno
+LEGNO_PVC-LEGNO-PVC
+leg0001-Confronto ricevimento/costo/spedito ad oggi
+leg0002-Confronto ricevimento/costo/spedito anno solare
+leg0003-Confronto ricevimento/costo/spedito per mese
+leg0004-Sconto medio fornitore per anno
+PRODOTTO_FINITO-PRODOTTO FINITO
+pro0001-Confronto ricevimento/costo/spedito ad oggi
+pro0002-Confronto ricevimento/costo/spedito anno solare
+pro0003-Spedito per agente da data a data fornitori Waterproof
+pro0005-Spedito per utente, agente e fornitore
+pro0006-Spedito prodotto finito diviso per generici e non
+pro0007-Statistica Waterproof 15->20
+pro0010-Conto teste e righe per operatore
+pro0011-Righe di ordini scaduti ancora aperte
+pro0012-Resi del prodotto finito
+pro0013-Quantità di resi per utente/agente
+pro0014-Elenco righe acquisto con giorni di permanenza in magazzino
+pro0015-Analisi permanenza in magazzino per fornitore
+pro0016-Venduto prodotto finito con proiezione (ordinato aperto)
+pro0017-Venduto cat. fornitoreprodotto finito con sconti
+pro0018-Venduto prodotto finito con proiezione (ordinato aperto)(tutti i prodotti)
+pro0019-Giorni di ritardo per fornitori e date
+pro0020-Conto teste e righe per operatore/fornitore
+pro0021-Ordini causa errore
+pro0022-Mini scadenziario acquisti
+pro0023-Verifica preventivi
+pro0024-Consegne Ermetec
+pro0025-Consegne e nr DFA per utente
+pro0026-Confronto ricevimento/costo/spedito per mese
+pro0027-Sconto medio fornitore per anno
+pro0028-Non conformità
+pro0029-Orditato cat. fornitore Prodotto finito con sconti
+ACQUISTI-ACQUISTI
+acq0001-Quantità e importo per utente / fornitore / tipo articolo
+acq0002-Prezzi Particolari per Clienti
+acq0003-Prezzi Particolari per Fornitori
+acq0004-Rotture di stock
+acq0005-Giacenza Immediata e storico vendite estesa
+acq0006-Confronto venduto e costo per fornitore
+acq0007-Confronto venduto e costo per cliente
+acq0008-Listino
+acq0009-Articoli non movimentati ultimo anno mobile
+acq0010-Variazioni di magazzino
+acq0011-Confronto date negli ordini di acquisto anno corrente
+acq0012-Verifica extra sconto
+acq0013-Venduto cliente per anno, mese e fornitore
+acq0014-Ordinato cliente per anno, mese e fornitore
+acq0015-Ritardi ordini fornitore aperti
+acq0016-Articoli non movimentati ultimo anno mobile TV
+acq0017-Articoli non movimentati ultimo anno mobile VA
+AMMINISTRAZIONE-AMMINISTRAZIONE
+amm0001-Clienti bollettati che non hanno invio fattura per email
+amm0002-Ricerca nomenclature diverse tra anagrafica e ultime fatture
+amm0003-Aggiornamento stato report bolle post fatturazione per evitare generazione pdf
+amm0004-Statistica RiskPredictor
+amm0005-Data e documento ultimo utilizzo di un pagamento
+amm0006-Grade dei clienti
+amm0007-Fatture con flag split payment acceso
+amm0008-Resi per anno con origini
+amm0009-Consegnato per anno e settore
+amm0010-Clienti che hanno bolle e fatture aperte e non hanno in anagrafica né SDI né PEC ruolo 18
+amm0011-Clienti che hanno bolle e fatture aperte e hanno il flag 'Persona fisica' sporco
+amm0012-Confronto fatture con flag 'bollo virtuale' e clienti con codice IVA diverso da 218
+amm0013-Mese di fatturazione errato
+amm0014-Elenco clienti con bolle o fatture aperte e senza codice fiscale
+amm0015-Elenco fornitori dei premi suddivisi per CDC
+amm0016-Calcolo imponibile per provvigioni specialisti di prodotto
+amm0017-Statistica Spese Trasporto per provvigioni agente
+amm0018-DCB con trasporto a cura vettore
+amm0019-Consegnato per centro di costo e giorno separato per conti COGE
+amm0020-Bolle aperte con CIG e CUP
+amm0021-Stato blocco clienti scelti
+amm0022-Fatture con IVA 218 e senza Dich.Intento
+amm0023-Estrazione Patrizia Documenti Di Carico
+amm0024-Estrazione anagrafica fornitori
+amm0025-Estrazione anagrafica clienti + Cribis
+amm0026-Ricerca IBAN (imposta il filtro)
+amm0027-Verifica Punti 2022
+amm0028-Verifica Punti 2022 short
+amm0029-Estrazione fatture per cliente ed anno
+amm0030-Provvigioni specialisti per anno e mese
+amm0031-Fidi e autocopertura
+amm0032-Provvigioni specialisti per DCM
+amm0201-Magazzino Ferport e rilevazioni incrociate
+amm0202-Inventario originale Ferport
+amm0203-Rilevazioni attuali
+RISORSE_UMANE-RISORSE UMANE
+ris0001-Provvigioni commerciali interni per anno e mese
+UTENSILERIA-UTENSILERIA
+ute0001-Acquistato e venduto fornitori scelti
+ute0002-Giacenze e costo per fornitore
+ute0005-Confronto Ricevimento/costo/spedito anno
+ute0006-Numero clienti nuovi anno mobile
+ute0007-Venduto e acquistato da articolo ad articolo
+ute0008-Confronto Ricevimento/costo/spedito ad oggi
+ute0009-Confronto Ricevimento/costo/spedito anno solare
+ute0011-Confronto Ricevimento/costo/spedito per mese
+ute0015-Consegnato anno rolling per fornitore
+ute0016-Consegnato Utensileria 3 anni per agente
+FURGONE-FURGONE
+fur0001-Ordini 'Furgone utensileria'
+fur0002-Ordini 'Furgone utensileria' per riga con provvigione
+fur0003-Consegnato Utensileria 3 anni per agente con specialista
+MAGAZZINO-MAGAZZINO
+mag0001-Giacenze attuali
+mag0002-Monitor ACEMA
+mag0003-Articoli in Modula
+mag0004-Conto teste e righe
+mag0005-Movimentazione di magazzino
+mag0006-Attività di oggi
+mag0007-Attività in corso
+mag0008-Conto teste e righe
+mag0009-Conto teste e righe per tipo documento
+mag0010-Conto Teste e righe Picking
+mag0011-Conto Teste e righe Acema (tra)
+mag0012-Conto Teste e righe Resi
+mag0013-Conto Teste e righe per mese e tipo documento
+OFFICINA_WEB-OFFICINA WEB
+web0001-Conto e Importo consegne anno corrente e precedente clienti A50
+web0002-Haustüren - statistica per articolo
+web0003-Haustüren - statistica per cliente
+web0004-Ordinato Susi per Settore
+web0005-Haustüren - Consegnato e Acquistato
+web0006-Ordini OCE per riga
+web0007-Statistiche A 50 per categoria fornitore
+MARKETING-MARKETING
+mar0001-Stato dei clienti con budget
+mar0002-Elenco clienti con rubrica e fatturato che hanno ruolo colfertwindow
+mar0003-Elenco fornitori con rubrica e fatturato che hanno ruolo colfertwindow
+mar0004-Elenco clienti con fatturati anno precedente e corrente
+mar0005-Confronto ordinato per trimestri tra clienti che hanno agente e ordinato in un anno >= 2000€ (specificare anno)
+mar0006-Tabella Punti 2019
+mar0007-Tabella Punti 2022
+CED_AGENTI-CED AGENTI
+age0001-Consegnato per cliente per fornitore (immettere codice fornitore completo)
+age0003-Consegnato per agente e cliente con numero di consegne
+age0004-Canvass
+age0005-Consegnato per cliente per fornitore (immettere codice fornitore completo) con periodo precedente
+age0006-Consegnato specialista Accessi Automatici
+age0007-Ordini di tipo Accessi Automatici
+NEGOZIO-NEGOZIO
+neg_treviso-NEGOZIO TREVISO
+neg0001-Consegnato punto vendita mensile per utente
+neg0003-Consegnato punto vendita quotidiano per utente
+neg0005-Statistiche utenti per categoria fornitore
+neg0006-Statistica vendite per agente

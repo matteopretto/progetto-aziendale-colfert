@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react"; 
+import { useEffect, useState, useRef } from "react";
 import { ApiSqlClient } from "../libs/classes";
 import { ArrowRightFromLineIcon, ArrowLeftFromLineIcon, CircleArrowLeft, CircleArrowRight } from "lucide-react";
 
@@ -121,7 +121,7 @@ export default function DynamicTable({ query, onDataLoad, filteredData }) {
                       <div className="flex items-center justify-between">
                         <span>{col}</span>
                         <span className="ml-2 text-xs opacity-70">
-                          {isSorted ? (direction === "asc" ? "▲" : "▼") : "△▽"}
+                          {isSorted ? (direction === "asc" ? "▲" : "▼") : "▲▼"}
                         </span>
                       </div>
                     </th>
@@ -134,9 +134,8 @@ export default function DynamicTable({ query, onDataLoad, filteredData }) {
               {paginatedRows.map((row, i) => (
                 <tr
                   key={i}
-                  className={`${
-                    i % 2 === 0 ? "bg-white" : "bg-gray-50"
-                  } hover:bg-yellow-50 transition-colors`}
+                  className={`${i % 2 === 0 ? "bg-white" : "bg-gray-50"
+                    } hover:bg-yellow-50 transition-colors`}
                 >
                   {columns.map((col) => (
                     <td key={col} className="px-3 py-2 border-b border-gray-200 text-gray-800">

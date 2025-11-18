@@ -6,19 +6,21 @@ function AddPermissionPopup({ visible, onClose }) {
     const [emailSuggestions, setEmailSuggestions] = useState([]);
     const [emailDropdown, setEmailDropdown] = useState(false);
 
-    const [code, setCode] = useState("");
+
     const [allCodes, setAllCodes] = useState([]);
     const [filteredCodes, setFilteredCodes] = useState([]);
     const [codeDropdown, setCodeDropdown] = useState(false);
 
     const [successMessage, setSuccessMessage] = useState("");
     const [inputErrorMessage, setInputErrorMessage] = useState("");
-    
+
 
     const dropdownRef = useRef(null);
     const emailRef = useRef(null);
 
     const ruolo = localStorage.getItem("user-role") || "";
+
+    const [code, setCode] = useState("");
 
     // --- Fetch codici
     useEffect(() => {
@@ -84,29 +86,29 @@ function AddPermissionPopup({ visible, onClose }) {
 
         fetchEmails();
     }, [visible]);
-    
-const handleEmailChange = (value) => {
-    setEmail(value);
-    // Mostriamo solo email che contengono il testo digitato
-    setEmailDropdown(
-        emailSuggestions.filter(e =>
-            e.toLowerCase().includes(value.toLowerCase())
-        ).length > 0
-    );
-};
 
-const handleSelectEmail = (e) => {
-    setEmail(e);
-    setEmailDropdown(false);
-};
-    // --- Aggiungi permesso
+    const handleEmailChange = (value) => {
+        setEmail(value);
+        // Mostriamo solo email che contengono il testo digitato
+        setEmailDropdown(
+            emailSuggestions.filter(e =>
+                e.toLowerCase().includes(value.toLowerCase())
+            ).length > 0
+        );
+    };
+
+    const handleSelectEmail = (e) => {
+        setEmail(e);
+        setEmailDropdown(false);
+    };
+
     const handleAdd = async () => {
         if (!email || !code) {
-             setInputErrorMessage("Inserisci mail e codice");
-        setTimeout(() => setInputErrorMessage(""), 2500);
-        return;
+            setInputErrorMessage("Inserisci mail e codice");
+            setTimeout(() => setInputErrorMessage(""), 2500);
+            return;
         }
-        
+
 
         if (ruolo !== "admin" && !allCodes.includes(code)) {
             alert("Codice non valido");
@@ -114,23 +116,25 @@ const handleSelectEmail = (e) => {
         }
 
         if (!emailSuggestions.includes(email)) {
-        setInputErrorMessage("Seleziona una email valida dalla lista");
-        setTimeout(() => setInputErrorMessage(""), 2500);
-        return;
-    }
+            setInputErrorMessage("Seleziona una email valida dalla lista");
+            setTimeout(() => setInputErrorMessage(""), 2500);
+            return;
+        }
 
         const query = `
             INSERT INTO dash..uservalues 
             VALUES ('${email}', 'webstats', '', '${code}','', '', '', '', GETDATE(), GETDATE(), 'create', 'pc')
         `;
         const sql = new ApiSqlClient();
+        
+        //Decommenta la riga sotto per eseguire l'inserimento
         //await sql.openQuery(query);
 
         // Mostra messaggio di successo per 2 secondi
         setSuccessMessage("Operazione eseguita con successo!");
         setTimeout(() => setSuccessMessage(""), 2500);
 
-      
+
         setCode("");
     };
 
@@ -188,7 +192,7 @@ const handleSelectEmail = (e) => {
                     <div className="w-1/4 relative">
                         <input
                             type="text"
-                            placeholder="codice..."
+
                             value={code}
                             onChange={e => handleCodeChange(e.target.value)}
                             onFocus={() => setCodeDropdown(true)}
@@ -215,13 +219,13 @@ const handleSelectEmail = (e) => {
                 {successMessage && (
                     <div className="mb-4 text-green-700 font-semibold">
                         {successMessage}
-                    
+
                     </div>
                 )}
-                 {inputErrorMessage && (
+                {inputErrorMessage && (
                     <div className="mb-4 text-red-700 font-semibold">
                         {inputErrorMessage}
-                    
+
                     </div>
                 )}
 
